@@ -561,6 +561,11 @@ footer {
     gap: 1.5rem !important;
   }
 
+  .two-col-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+
   .wheel-container {
     max-width: 100%;
     padding: 10px;
@@ -740,8 +745,8 @@ footer {
 .cta-button:hover {
     background: #0088a0;
 }
-    background: #0c8a9e;
-}
+
+
 
 /* Investment Section Wrapper */
 .investment-section {
