@@ -556,6 +556,11 @@ footer {
     font-size: 16px !important;
   }
 
+  .contact-details-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
   .wheel-container {
     max-width: 100%;
     padding: 10px;
