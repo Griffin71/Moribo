@@ -724,14 +724,17 @@ footer {
     display: inline-block;
     margin-top: 20px;
     padding: 12px 30px;
-    background: #0ea2bd;
+    background: var(--teal-accent);
     color: white;
     text-decoration: none;
     border-radius: 8px;
     font-weight: bold;
+    transition: background 0.3s ease;
 }
 
 .cta-button:hover {
+    background: #0088a0;
+}
     background: #0c8a9e;
 }
 
