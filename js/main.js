@@ -195,91 +195,230 @@ function debounce(func, wait) {
 document.addEventListener('DOMContentLoaded', function() {
 
     const services = [
-        { title: "Budgeting & Coaching Services", color: "#8b5cf6", icon: "💰" },
-        { title: "Debt Management Solutions", color: "#ef4444", icon: "📋" },
-        { title: "Facilitated Insurance Solutions", color: "#f97316", icon: "🛡️" },
-        { title: "Facilitated Personal Insurance Solutions", color: "#fb923c", icon: "🛡️" },
-        { title: "Upskilling Workshops & Training", color: "#eab308", icon: "🎓" },
-        { title: "Facilitated Lending Solutions", color: "#22c55e", icon: "🏠" },
-        { title: "Integrated Wellness Events", color: "#14b8a6", icon: "❤️" },
-        { title: "Personal Financial Wellness Management Programs", color: "#3b82f6", icon: "💼" }
+        { 
+            title: "Financial Assessment", 
+            color: "#3b82f6", 
+            icon: "fas fa-chart-line",
+            description: "Comprehensive financial wellness assessments tailored to your situation",
+            benefits: ["Income & Expense Analysis", "Asset & Liability Review", "Financial Health Profile", "Personalized Recommendations"]
+        },
+        { 
+            title: "Debt Management", 
+            color: "#ef4444", 
+            icon: "fas fa-credit-card",
+            description: "Strategic solutions to restructure and manage your debt effectively",
+            benefits: ["Debt Restructuring", "Formal Debt Review", "Reckless Lending Assessment", "Repayment Planning"]
+        },
+        { 
+            title: "Budgeting & Coaching", 
+            color: "#8b5cf6", 
+            icon: "fas fa-calculator",
+            description: "Personalized coaching to develop practical budgeting skills and financial discipline",
+            benefits: ["Budget Creation", "Financial Coaching", "Expense Management", "Savings Planning"]
+        },
+        { 
+            title: "Insurance Solutions", 
+            color: "#f97316", 
+            icon: "fas fa-shield-alt",
+            description: "Access to affordable and suitable personal insurance coverage options",
+            benefits: ["Personal Insurance", "Coverage Assessment", "Affordable Options", "Expert Guidance"]
+        },
+        { 
+            title: "Workshops & Training", 
+            color: "#eab308", 
+            icon: "fas fa-graduation-cap",
+            description: "Comprehensive educational programs to enhance your financial knowledge",
+            benefits: ["Financial Literacy", "Retirement Planning", "Money Management Skills", "Workplace Readiness"]
+        },
+        { 
+            title: "Wellness Events", 
+            color: "#14b8a6", 
+            icon: "fas fa-calendar-alt",
+            description: "Integrated financial wellness initiatives for organizations and communities",
+            benefits: ["Event Coordination", "Employee Programs", "Wellness Days", "Community Education"]
+        },
+        { 
+            title: "Lending Facilitation", 
+            color: "#22c55e", 
+            icon: "fas fa-handshake",
+            description: "Access to responsible lending and financing solutions for your needs",
+            benefits: ["Personal Loans", "Home Financing", "Payroll Deductions", "Affordable Terms"]
+        },
+        { 
+            title: "Wealth Planning", 
+            color: "#06b6d4", 
+            icon: "fas fa-piggy-bank",
+            description: "Strategic planning to grow your wealth and secure your financial future",
+            benefits: ["Investment Planning", "Savings Strategy", "Wealth Growth", "Future Security"]
+        }
     ];
 
-    const svg = document.getElementById('financial-wheel');
-    svg.innerHTML = '';
+    const wheelContainer = document.getElementById('financial-wheel');
+    if (!wheelContainer) return;
 
-    const centerX = 350, centerY = 350, radius = 280;
+    // Responsive sizing
+    const containerWidth = wheelContainer.parentElement.clientWidth;
+    const svgSize = Math.min(containerWidth - 20, 650);
+    const isMobile = window.innerWidth <= 768;
+    
+    const centerX = svgSize / 2;
+    const centerY = svgSize / 2;
+    const radius = isMobile ? svgSize / 2.8 : svgSize / 2.4;
 
+    wheelContainer.setAttribute('viewBox', `0 0 ${svgSize} ${svgSize}`);
+    wheelContainer.setAttribute('height', `${svgSize}px`);
+    wheelContainer.innerHTML = '';
+
+    // Create wheel segments with better interactivity
     services.forEach((service, i) => {
-        const angle = (i * 45) - 90; // 45 degrees per segment
+        const angle = (i * (360 / services.length)) - 90;
         const rad = (angle * Math.PI) / 180;
         
         const x = centerX + radius * Math.cos(rad);
         const y = centerY + radius * Math.sin(rad);
 
-        // Create colored segment (using simple circle sectors for now)
+        // Segment circle
         const segment = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         segment.setAttribute("cx", centerX);
         segment.setAttribute("cy", centerY);
         segment.setAttribute("r", radius);
         segment.setAttribute("fill", "none");
         segment.setAttribute("stroke", service.color);
-        segment.setAttribute("stroke-width", "140");
-        segment.setAttribute("stroke-dasharray", "110 250");
-        segment.setAttribute("stroke-dashoffset", -i * 110);
+        segment.setAttribute("stroke-width", radius / 2);
+        segment.setAttribute("stroke-dasharray", (2 * Math.PI * radius) / services.length + " " + (2 * Math.PI * radius));
+        segment.setAttribute("stroke-dashoffset", -(i * (2 * Math.PI * radius) / services.length));
         segment.setAttribute("class", "segment");
+        segment.setAttribute("data-index", i);
+        segment.style.cursor = "pointer";
         segment.style.transition = "all 0.3s ease";
 
-        segment.addEventListener('click', () => {
-            showModal(service);
+        segment.addEventListener('click', () => showModal(service));
+        segment.addEventListener('mouseenter', () => {
+            segment.style.filter = "brightness(1.2)";
+            segment.style.opacity = "0.9";
+        });
+        segment.addEventListener('mouseleave', () => {
+            segment.style.filter = "brightness(1)";
+            segment.style.opacity = "1";
         });
 
-        svg.appendChild(segment);
+        wheelContainer.appendChild(segment);
 
-        // Icon
-        const icon = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        icon.setAttribute("x", x);
-        icon.setAttribute("y", y);
-        icon.setAttribute("font-size", "38");
-        icon.setAttribute("text-anchor", "middle");
-        icon.setAttribute("dominant-baseline", "middle");
-        icon.textContent = service.icon;
-        svg.appendChild(icon);
+        // FontAwesome Icon
+        const iconText = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+        iconText.setAttribute("x", x - 20);
+        iconText.setAttribute("y", y - 20);
+        iconText.setAttribute("width", "40");
+        iconText.setAttribute("height", "40");
+
+        const icon = document.createElement("i");
+        icon.className = service.icon + " fa-2x";
+        icon.style.color = service.color;
+        icon.style.display = "flex";
+        icon.style.alignItems = "center";
+        icon.style.justifyContent = "center";
+        icon.style.width = "100%";
+        icon.style.height = "100%";
+
+        iconText.appendChild(icon);
+        wheelContainer.appendChild(iconText);
+
+        // Label text (smaller on mobile)
+        const labelText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        const labelRadius = radius + (isMobile ? 40 : 60);
+        const labelX = centerX + labelRadius * Math.cos(rad);
+        const labelY = centerY + labelRadius * Math.sin(rad);
+        
+        labelText.setAttribute("x", labelX);
+        labelText.setAttribute("y", labelY);
+        labelText.setAttribute("text-anchor", "middle");
+        labelText.setAttribute("dominant-baseline", "middle");
+        labelText.setAttribute("font-size", isMobile ? "10" : "12");
+        labelText.setAttribute("fill", service.color);
+        labelText.setAttribute("font-weight", "bold");
+        labelText.style.pointerEvents = "none";
+        
+        const words = service.title.split(" ");
+        if (isMobile && words.length > 2) {
+            labelText.textContent = words.slice(0, 2).join(" ");
+        } else {
+            labelText.textContent = service.title;
+        }
+        labelText.style.cursor = "pointer";
+        wheelContainer.appendChild(labelText);
     });
 
-    // Center Hub
+    // Center Hub with better styling
     const center = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     center.setAttribute("cx", centerX);
     center.setAttribute("cy", centerY);
-    center.setAttribute("r", "110");
-    center.setAttribute("fill", "#ffffff");
-    center.setAttribute("stroke", "#ddd");
-    center.setAttribute("stroke-width", "25");
-    svg.appendChild(center);
+    center.setAttribute("r", radius / 2.5);
+    center.setAttribute("fill", "white");
+    center.setAttribute("stroke", "var(--primary-brown)");
+    center.setAttribute("stroke-width", "3");
+    center.style.filter = "drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15))";
+    wheelContainer.appendChild(center);
 
+    // Center text
     const text1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text1.setAttribute("x", centerX);
-    text1.setAttribute("y", centerY - 8);
+    text1.setAttribute("y", centerY - 10);
     text1.setAttribute("text-anchor", "middle");
-    text1.setAttribute("font-size", "21");
-    text1.setAttribute("fill", "#1f2937");
-    text1.textContent = "The Financial";
-    svg.appendChild(text1);
+    text1.setAttribute("font-size", isMobile ? "14" : "18");
+    text1.setAttribute("fill", "var(--primary-brown)");
+    text1.setAttribute("font-weight", "bold");
+    text1.textContent = "Financial";
+    wheelContainer.appendChild(text1);
 
     const text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text2.setAttribute("x", centerX);
-    text2.setAttribute("y", centerY + 18);
+    text2.setAttribute("y", centerY + 12);
     text2.setAttribute("text-anchor", "middle");
-    text2.setAttribute("font-size", "21");
-    text2.setAttribute("fill", "#1f2937");
-    text2.textContent = "Wellness Hub";
-    svg.appendChild(text2);
+    text2.setAttribute("font-size", isMobile ? "14" : "18");
+    text2.setAttribute("fill", "var(--primary-brown)");
+    text2.setAttribute("font-weight", "bold");
+    text2.textContent = "Wellness";
+    wheelContainer.appendChild(text2);
 
-    console.log("✅ Wheel should be visible now");
+    // Close modal on click outside
+    document.getElementById('service-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'service-modal') {
+            e.target.style.display = 'none';
+        }
+    });
+
+    // Close modal on close button
+    document.querySelector('.modal-close').addEventListener('click', () => {
+        document.getElementById('service-modal').style.display = 'none';
+    });
+
+    // Handle window resize for responsive wheel
+    window.addEventListener('resize', debounce(() => {
+        if (document.getElementById('financial-wheel')) {
+            location.reload();
+        }
+    }, 500));
 });
 
 function showModal(service) {
-    document.getElementById('modal-icon').innerHTML = service.icon;
+    const modal = document.getElementById('service-modal');
+    document.getElementById('modal-icon').innerHTML = `<i class="${service.icon} fa-3x" style="color: ${service.color}; margin-bottom: 1rem;"></i>`;
     document.getElementById('modal-title').textContent = service.title;
-    document.getElementById('service-modal').style.display = "flex";
+    document.getElementById('modal-description').innerHTML = `<p style="color: var(--text-light); font-size: 1rem; margin: 1rem 0; line-height: 1.6;">${service.description}</p>`;
+    
+    const benefitsList = document.getElementById('modal-benefits');
+    benefitsList.innerHTML = '';
+    benefitsList.style.textAlign = 'left';
+    benefitsList.style.marginLeft = '1.5rem';
+    benefitsList.style.marginBottom = '1rem';
+    service.benefits.forEach(benefit => {
+        const li = document.createElement('li');
+        li.innerHTML = `<i class="fas fa-check-circle" style="color: var(--teal-accent); margin-right: 0.5rem;"></i>${benefit}`;
+        li.style.marginBottom = '0.5rem';
+        li.style.color = 'var(--text-dark)';
+        benefitsList.appendChild(li);
+    });
+    
+    document.getElementById('modal-cta').href = '/pages/contact.html';
+    modal.style.display = 'flex';
 }

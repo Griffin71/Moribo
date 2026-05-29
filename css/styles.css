@@ -453,6 +453,28 @@ footer {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .wheel-container {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  #financial-wheel {
+    min-height: 400px;
+  }
+
+  .wheel-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .wheel-description {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -514,21 +536,88 @@ footer {
   .map-item iframe {
     height: 300px;
   }
+
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .contact-grid > div {
+    max-width: 100%;
+  }
+
+  .contact-grid h2 {
+    font-size: 1.2rem;
+  }
+
+  #contact-form input,
+  #contact-form textarea,
+  #contact-form button {
+    font-size: 16px !important;
+  }
+
+  .wheel-container {
+    max-width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+  }
+
+  #financial-wheel {
+    min-height: 350px;
+  }
+
+  .wheel-section {
+    padding: 2rem 1rem;
+  }
+
+  .wheel-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .wheel-description {
+    font-size: 0.9rem;
+  }
 }
 
 
 /* === FINANCIAL WHEEL STYLES === */
+.wheel-section {
+    background: linear-gradient(135deg, var(--off-white) 0%, var(--light-gray) 100%);
+    padding: 3rem 1.5rem;
+}
+
+.wheel-section h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--primary-brown);
+    font-size: 2.2rem;
+}
+
+.wheel-description {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1.05rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+}
+
 .wheel-container {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 20px;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 20px 10px;
     position: relative;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow);
 }
 
 #financial-wheel {
     width: 100%;
     height: auto;
     cursor: pointer;
+    display: block;
+    max-height: 650px;
 }
 
 .segment {
@@ -538,12 +627,12 @@ footer {
 
 .segment:hover {
     filter: brightness(1.15);
-    transform: scale(1.08);
+    opacity: 0.95;
 }
 
 .segment.active {
     filter: brightness(1.2);
-    stroke: #fff;
+    stroke: var(--primary-brown);
     stroke-width: 8;
 }
 
@@ -559,6 +648,8 @@ footer {
     z-index: 1000;
     align-items: center;
     justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
 }
 
 .modal-content {
@@ -566,10 +657,22 @@ footer {
     padding: 40px;
     border-radius: 15px;
     max-width: 500px;
-    width: 90%;
+    width: 100%;
     text-align: center;
     position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .modal-close {
@@ -579,11 +682,42 @@ footer {
     font-size: 30px;
     cursor: pointer;
     color: #666;
+    transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: var(--teal-accent);
 }
 
 .modal-icon {
     font-size: 60px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+}
+
+#modal-benefits {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#modal-benefits li {
+    margin-bottom: 0.75rem;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+}
+
+#modal-benefits i {
+    color: var(--teal-accent);
+    margin-right: 0.75rem;
+    min-width: 20px;
 }
 
 .cta-button {
@@ -599,4 +733,35 @@ footer {
 
 .cta-button:hover {
     background: #0c8a9e;
+}
+
+/* Investment Section Wrapper */
+.investment-section {
+    padding: 2rem 1.5rem;
+    background-color: var(--light-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.investment-section .container {
+    width: 100%;
+    /* Prevents the image from touching the screen edges on tiny devices */
+    padding-right: 15px;
+    padding-left: 15px; 
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Mobile Responsive Image */
+.responsive-investment-img {
+    width: 100%;
+    max-width: 600px;    /* The image will never get bigger than this on desktops */
+    height: auto;        /* Keeps the image aspect ratio perfect so it doesn't look squished */
+    display: block;
+    margin: 0 auto;      /* Centers it perfectly */
+    
+    /* Design Details */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow);
 }
