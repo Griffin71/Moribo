@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cookie Settings - Moribo Financial Wellness Solution">
+    <meta name="author" content="Kabelo Kgosana">
+    <title>Cookie Settings - Moribo Financial Wellness Solution</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .policy-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        .policy-content h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--teal-accent);
+            padding-bottom: 0.5rem;
+        }
+        .policy-content h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .cookie-category {
+            background-color: var(--light-gray);
+            padding: 1rem;
+            border-left: 4px solid var(--teal-accent);
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--teal-accent);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="container">
+            <div class="logo-container">
+                <img src="../assets/logo.png" alt="Moribo Financial Wellness Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../pages/about.html">About</a></li>
+                <li><a href="../pages/services.html">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Cookie Settings</h1>
+            <p class="hero-slogan">MANAGE YOUR PREFERENCES</p>
+            <p>Manage your cookie preferences</p>
+        </div>
+    </section>
+
+    <!-- Cookie Settings Content -->
+    <section class="section">
+        <div class="container policy-content">
+            
+            <div class="card" style="background-color: var(--light-gray); border-left: 4px solid var(--teal-accent);">
+                <p><strong>Last Updated:</strong> May 28, 2026</p>
+                <p><strong>Document Author:</strong> Kabelo Kgosana</p>
+                <p><strong>Company:</strong> Moribo Financial Wellness Solution</p>
+            </div>
+
+            <h2>1. What Are Cookies?</h2>
+            <p>
+                Cookies are small text files that are stored on your computer, tablet, or mobile device when you visit our website. 
+                They help us remember your preferences and improve your browsing experience. Cookies may be persistent (stored for a 
+                longer period) or session-based (cleared when you close your browser).
+            </p>
+
+            <h2>2. Types of Cookies We Use</h2>
+
+            <div class="cookie-category">
+                <h3 style="margin-top: 0;">Essential Cookies</h3>
+                <p>
+                    These cookies are necessary for the website to function properly. They include security-related cookies and session 
+                    cookies. You cannot opt-out of these cookies as they are required for the website to operate.
+                </p>
+                <p><strong>Examples:</strong> Session identifiers, security tokens</p>
+            </div>
+
+            <div class="cookie-category">
+                <h3 style="margin-top: 0;">Performance & Analytics Cookies</h3>
+                <p>
+                    These cookies help us understand how visitors interact with our website. They collect information about which pages 
+                    are visited, how long visitors stay, and any errors encountered.
+                </p>
+                <p><strong>Examples:</strong> Google Analytics, page view tracking</p>
+                <div class="toggle-switch">
+                    <label class="switch">
+                        <input type="checkbox" id="analytics-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span>Enable Analytics Cookies</span>
+                </div>
+            </div>
+
+            <div class="cookie-category">
+                <h3 style="margin-top: 0;">Functional Cookies</h3>
+                <p>
+                    These cookies allow our website to remember choices you make and provide enhanced functionality. They may remember 
+                    your language preference, login information, or customized features.
+                </p>
+                <p><strong>Examples:</strong> Language preferences, user preferences</p>
+                <div class="toggle-switch">
+                    <label class="switch">
+                        <input type="checkbox" id="functional-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span>Enable Functional Cookies</span>
+                </div>
+            </div>
+
+            <div class="cookie-category">
+                <h3 style="margin-top: 0;">Marketing & Advertising Cookies</h3>
+                <p>
+                    These cookies are used to track your online activity and to display personalized advertisements based on your interests. 
+                    They may be set by us or by third-party advertising partners.
+                </p>
+                <p><strong>Examples:</strong> Retargeting pixels, conversion tracking</p>
+                <div class="toggle-switch">
+                    <label class="switch">
+                        <input type="checkbox" id="marketing-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span>Enable Marketing Cookies</span>
+                </div>
+            </div>
+
+            <h2>3. How We Use Cookies</h2>
+            <p>We use cookies to:</p>
+            <ul class="features-list">
+                <li>Ensure the website functions properly</li>
+                <li>Improve user experience and website performance</li>
+                <li>Analyze user behavior and usage patterns</li>
+                <li>Personalize content and recommendations</li>
+                <li>Remember your preferences and login information</li>
+                <li>Deliver targeted advertising</li>
+                <li>Prevent fraudulent activity</li>
+                <li>Comply with legal requirements</li>
+            </ul>
+
+            <h2>4. Third-Party Cookies</h2>
+            <p>
+                We may allow third-party service providers to place cookies on your device for analytics, advertising, and 
+                functional purposes. These include:
+            </p>
+            <ul class="features-list">
+                <li>Google Analytics</li>
+                <li>Social media platforms</li>
+                <li>Advertising partners</li>
+                <li>Analytics and performance tools</li>
+            </ul>
+
+            <h2>5. How to Control Cookies</h2>
+            <h3>5.1 Browser Settings</h3>
+            <p>
+                Most browsers allow you to refuse cookies or alert you when cookies are being sent. Please note that blocking 
+                cookies may affect the functionality of our website.
+            </p>
+
+            <h3>5.2 Cookie Controls on This Site</h3>
+            <p>
+                Use the toggle switches above to enable or disable different types of cookies. Your preferences will be saved in 
+                your browser.
+            </p>
+
+            <h3>5.3 Opt-Out Options</h3>
+            <p>
+                You can opt-out of certain advertising networks by visiting:
+            </p>
+            <ul class="features-list">
+                <li><a href="https://www.networkadvertising.org/managing/opt_out.asp" target="_blank">Network Advertising Initiative</a></li>
+                <li><a href="https://www.aboutads.info/choices" target="_blank">Digital Advertising Alliance</a></li>
+            </ul>
+
+            <h2>6. Retention of Cookie Data</h2>
+            <p>
+                Different cookies are retained for different periods:
+            </p>
+            <ul class="features-list">
+                <li>Session cookies: Deleted when you close your browser</li>
+                <li>Persistent cookies: May be retained for up to 2 years</li>
+                <li>Analytics data: Typically retained for 26 months</li>
+            </ul>
+
+            <h2>7. Changes to Cookie Policy</h2>
+            <p>
+                We may update this Cookie Policy from time to time to reflect changes in technology or legal requirements. 
+                The date of the last update will be shown at the top of this page.
+            </p>
+
+            <h2>8. Contact Us</h2>
+            <p>
+                If you have any questions about our use of cookies or this Cookie Policy, please contact us:
+            </p>
+            <div class="card">
+                <p><strong>Moribo Financial Wellness Solution</strong></p>
+                <p>Email: <a href="mailto:cookies@moribo.com">cookies@moribo.com</a></p>
+                <p>Address: [Your Company Address]</p>
+                <p>Phone: [Your Contact Number]</p>
+            </div>
+
+            <h2>9. Your Rights</h2>
+            <p>
+                Under data protection laws including POPIA (Protection of Personal Information Act), you have the right to:
+            </p>
+            <ul class="features-list">
+                <li>Know what data we collect</li>
+                <li>Access your personal information</li>
+                <li>Request correction of inaccurate information</li>
+                <li>Request deletion of your information</li>
+                <li>Withdraw your consent at any time</li>
+            </ul>
+
+            <h2>10. Cookie Consent Management</h2>
+            <p>
+                When you first visit our website, a cookie consent banner will appear asking you to accept or deny cookies. 
+                Your choice will be saved in your browser, and you can change it at any time using this page.
+            </p>
+            
+            <div style="margin-top: 2rem; padding: 1rem; background-color: var(--background-light); border-radius: 4px;">
+                <button class="btn btn-primary" onclick="acceptAllCookies()">Accept All Cookies</button>
+                <button class="btn btn-outline" onclick="rejectAllCookies()" style="margin-left: 1rem;">Reject All Cookies</button>
+                <button class="btn btn-secondary" onclick="saveCookiePreferences()" style="margin-left: 1rem;">Save Preferences</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-header">
+                <img src="../assets/logo.png" alt="Moribo Logo" class="footer-logo">
+                <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Moribo Financial Wellness</h3>
+                    <p>Empowering individuals and organizations to achieve their financial goals and build sustainable futures.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../pages/about.html">About Us</a></li>
+                        <li><a href="../pages/services.html">Services</a></li>
+                        <li><a href="../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="cookie-settings.html">Cookie Settings</a></li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Moribo Financial Wellness Solution. All rights reserved.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">Website created by Kabelo Kgosana</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script>
+        // Cookie Management Functions
+        function acceptAllCookies() {
+            document.getElementById('analytics-toggle').checked = true;
+            document.getElementById('functional-toggle').checked = true;
+            document.getElementById('marketing-toggle').checked = true;
+            saveCookiePreferences();
+            alert('All cookies accepted!');
+        }
+
+        function rejectAllCookies() {
+            document.getElementById('analytics-toggle').checked = false;
+            document.getElementById('functional-toggle').checked = false;
+            document.getElementById('marketing-toggle').checked = false;
+            saveCookiePreferences();
+            alert('Non-essential cookies rejected!');
+        }
+
+        function saveCookiePreferences() {
+            const preferences = {
+                analytics: document.getElementById('analytics-toggle').checked,
+                functional: document.getElementById('functional-toggle').checked,
+                marketing: document.getElementById('marketing-toggle').checked,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+            alert('Cookie preferences saved!');
+        }
+
+        // Load saved preferences
+        window.addEventListener('load', function() {
+            const saved = localStorage.getItem('cookiePreferences');
+            if (saved) {
+                const preferences = JSON.parse(saved);
+                document.getElementById('analytics-toggle').checked = preferences.analytics;
+                document.getElementById('functional-toggle').checked = preferences.functional;
+                document.getElementById('marketing-toggle').checked = preferences.marketing;
+            }
+        });
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
