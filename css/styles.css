@@ -868,6 +868,13 @@ footer {
     margin-left: auto;
 }
 
+/* Ensure investment images are centered inside their container (about page) */
+.investment-section .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Mobile Responsive Image */
 .responsive-investment-img {
     width: 100%;
@@ -1117,4 +1124,159 @@ footer {
     .modal-nav.prev { left: 10px; }
     .modal-nav.next { right: 10px; }
 }
+}
+
+/* RESET & BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* SECTION STYLES */
+.wheel-section {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px 16px 32px 16px;
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.wheel-section h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a3a4a;
+    margin-bottom: 12px;
+}
+
+.wheel-section h2 i {
+    color: #2e7d64;
+    margin-right: 8px;
+}
+
+.wheel-description {
+    font-size: 0.95rem;
+    color: #4a627a;
+    line-height: 1.45;
+    max-width: 500px;
+    margin: 0 auto 24px auto;
+    padding: 0 8px;
+}
+
+/* WHEEL CONTAINER - CENTERED & FULLY VISIBLE ON ALL SCREENS */
+.wheel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 8px;
+}
+
+/* IMAGE STYLES - whole wheel always visible, no cropping */
+.investment-image {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+.investment-image:active {
+    transform: scale(0.98);
+}
+
+/* MODAL (full-screen viewer) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.92);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    max-width: 94%;
+    max-height: 94%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.25s ease;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    color: white;
+    font-size: 42px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    z-index: 1001;
+    background: rgba(0,0,0,0.5);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.05);
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* EXTRA SMALL PHONES (<=480px): guarantee no clipping */
+@media (max-width: 480px) {
+    .wheel-section {
+        padding: 16px 12px 24px 12px;
+    }
+    .wheel-section h2 {
+        font-size: 1.35rem;
+    }
+    .wheel-description {
+        font-size: 0.85rem;
+        margin-bottom: 18px;
+    }
+    .investment-image {
+        max-height: 65vh;
+    }
+    .modal-content {
+        max-width: 96%;
+        max-height: 92%;
+    }
+}
+
+/* LARGE DESKTOP / HUGE DISPLAYS: keep wheel fully visible */
+@media (min-width: 1400px) {
+    .wheel-section {
+        max-width: 860px;
+    }
+    .investment-image {
+        max-height: 70vh;
+    }
 }

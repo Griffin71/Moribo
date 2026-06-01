@@ -138,8 +138,10 @@ function initImageLightbox() {
   const images = document.querySelectorAll('.investment-image');
   if (!images.length) return;
 
-  const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('modalImage');
+  // Support different modal IDs across pages: `imageModal` (index) or `image-modal` (about),
+  // or an element with class `image-modal`.
+  const modal = document.getElementById('imageModal') || document.getElementById('image-modal') || document.querySelector('.image-modal');
+  const modalImg = document.getElementById('modalImage') || document.getElementById('modal-image') || (modal ? modal.querySelector('img') : null);
   const closeBtn = modal ? modal.querySelector('.modal-close') : null;
 
   const openModal = (src, alt) => {
