@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize interactive elements
   initInteractiveElements();
+
+  // Enable image fullscreen preview for large visuals
+  initImageLightbox();
   
   // Active nav link highlight
   updateActiveNavLink();
@@ -124,6 +127,39 @@ function initSmoothScroll() {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
+  });
+}
+
+function initImageLightbox() {
+  const images = document.querySelectorAll('.investment-image');
+  if (!images.length) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.innerHTML = '<span class="lightbox-close">&times;</span><img alt="Image preview" />';
+  document.body.appendChild(overlay);
+
+  const overlayImage = overlay.querySelector('img');
+  const closeButton = overlay.querySelector('.lightbox-close');
+
+  images.forEach(image => {
+    image.addEventListener('click', () => {
+      overlayImage.src = image.src;
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  const closeLightbox = () => {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  closeButton.addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', event => {
+    if (event.target === overlay) {
+      closeLightbox();
+    }
   });
 }
 
