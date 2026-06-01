@@ -131,36 +131,41 @@ function initSmoothScroll() {
 }
 
 function initImageLightbox() {
+  // Reuse the existing #imageModal element in the HTML to avoid appending
+  // extra elements to the end of the document (which caused the image
+  // to appear after the footer). This wires all `.investment-image` items
+  // to open the modal defined in `index.html`.
   const images = document.querySelectorAll('.investment-image');
   if (!images.length) return;
 
-  const overlay = document.createElement('div');
-  overlay.className = 'lightbox-overlay';
-  overlay.innerHTML = '<span class="lightbox-close">&times;</span><img alt="Image preview" />';
-  document.body.appendChild(overlay);
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  const closeBtn = modal ? modal.querySelector('.modal-close') : null;
 
-  const overlayImage = overlay.querySelector('img');
-  const closeButton = overlay.querySelector('.lightbox-close');
+  const openModal = (src, alt) => {
+    if (!modal || !modalImg) return;
+    modalImg.src = src;
+    modalImg.alt = alt || '';
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
 
-  images.forEach(image => {
-    image.addEventListener('click', () => {
-      overlayImage.src = image.src;
-      overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  const closeLightbox = () => {
-    overlay.classList.remove('active');
+  const closeModal = () => {
+    if (!modal) return;
+    modal.style.display = 'none';
     document.body.style.overflow = '';
   };
 
-  closeButton.addEventListener('click', closeLightbox);
-  overlay.addEventListener('click', event => {
-    if (event.target === overlay) {
-      closeLightbox();
-    }
+  images.forEach(image => {
+    image.addEventListener('click', () => openModal(image.src, image.alt));
   });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeModal();
+    });
+  }
 }
 
 // Cookie Consent
