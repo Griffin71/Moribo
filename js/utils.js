@@ -1,4 +1,5 @@
 // Moribo Financial Wellness Solution - Utility Functions
+// Written by Kabelo Kgosana
 
 // Format currency
 function formatCurrency(amount, currency = 'ZAR') {
@@ -21,6 +22,12 @@ function formatDate(date) {
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
+}
+
+//Validate phone number
+function isValidPhone(phone) {
+ const phoneRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //check validation if true
+ return phoneRegex.test(phone);
 }
 
 // Get query parameter

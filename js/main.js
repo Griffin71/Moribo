@@ -1,30 +1,15 @@
 // Moribo Financial Wellness Solution - Main JavaScript
-
+//Written by Kabelo Kgosana
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Moribo Financial Wellness Solution - Loaded');
   
-  // Initialize mobile menu if needed
+  // Initialize all components
   initMobileMenu();
-  
-  // Initialize cookie consent
   initCookieConsent();
-  
-  // Smooth scroll for anchor links
   initSmoothScroll();
-  
-  // Initialize animations
   initAnimations();
-  
-  // Initialize interactive elements
-  initInteractiveElements();
-
-  // Enable image fullscreen preview for large visuals
-  initImageLightbox();
-  
-  // Active nav link highlight
+  initUnifiedImageModal();
   updateActiveNavLink();
-  
-  // Scroll effect for header
   addHeaderScrollEffect();
 });
 
@@ -44,7 +29,6 @@ function updateActiveNavLink() {
 // Add header scroll effect
 function addHeaderScrollEffect() {
   const header = document.querySelector('header');
-  let lastScrollTop = 0;
   
   window.addEventListener('scroll', function() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -54,8 +38,6 @@ function addHeaderScrollEffect() {
     } else {
       header.style.boxShadow = '0 2px 8px rgba(53, 41, 36, 0.1)';
     }
-    
-    lastScrollTop = scrollTop;
   });
 }
 
@@ -80,21 +62,6 @@ function initAnimations() {
   });
 }
 
-// Initialize interactive elements
-function initInteractiveElements() {
-  const interactiveElements = document.querySelectorAll('.interactive, .interactive-btn');
-  
-  interactiveElements.forEach(element => {
-    element.addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(1.05)';
-    });
-    
-    element.addEventListener('mouseleave', function() {
-      this.style.transform = 'scale(1)';
-    });
-  });
-}
-
 // Mobile Menu Toggle
 function initMobileMenu() {
   const menuToggle = document.querySelector('.menu-toggle');
@@ -106,7 +73,6 @@ function initMobileMenu() {
       this.classList.toggle('active');
     });
     
-    // Close menu when link is clicked
     const navItems = document.querySelectorAll('.nav-links a');
     navItems.forEach(item => {
       item.addEventListener('click', function() {
@@ -130,44 +96,145 @@ function initSmoothScroll() {
   });
 }
 
-function initImageLightbox() {
-  // Reuse the existing #imageModal element in the HTML to avoid appending
-  // extra elements to the end of the document (which caused the image
-  // to appear after the footer). This wires all `.investment-image` items
-  // to open the modal defined in `index.html`.
-  const images = document.querySelectorAll('.investment-image');
-  if (!images.length) return;
+// Unified Image Modal for all pages
+function initUnifiedImageModal() {
+  let modal = document.getElementById('unifiedModal');
+  
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'unifiedModal';
+    modal.className = 'modal';
+    modal.innerHTML = `
+      <span class="modal-close">&times;</span>
+      <img class="modal-content" id="unifiedModalImage">
+      <div class="modal-nav prev">‹</div>
+      <div class="modal-nav next">›</div>
+    `;
+    document.body.appendChild(modal);
+  }
 
-  // Support different modal IDs across pages: `imageModal` (index) or `image-modal` (about),
-  // or an element with class `image-modal`.
-  const modal = document.getElementById('imageModal') || document.getElementById('image-modal') || document.querySelector('.image-modal');
-  const modalImg = document.getElementById('modalImage') || document.getElementById('modal-image') || (modal ? modal.querySelector('img') : null);
-  const closeBtn = modal ? modal.querySelector('.modal-close') : null;
-
-  const openModal = (src, alt) => {
-    if (!modal || !modalImg) return;
-    modalImg.src = src;
-    modalImg.alt = alt || '';
+  const modalImg = document.getElementById('unifiedModalImage');
+  const closeBtn = modal.querySelector('.modal-close');
+  const prevBtn = modal.querySelector('.prev');
+  const nextBtn = modal.querySelector('.next');
+  
+  // Collect all clickable images
+  const clickableImages = [
+    ...document.querySelectorAll('.investment-image'),
+    ...document.querySelectorAll('.responsive-investment-img'),
+    ...document.querySelectorAll('#wheelImage')
+  ];
+  
+  const teamMembers = document.querySelectorAll('.team-member');
+  
+  let currentImageSet = [];
+  let currentIndex = 0;
+  
+  function updateNavVisibility() {
+    if (currentImageSet.length > 1) {
+      prevBtn.style.display = 'flex';
+      nextBtn.style.display = 'flex';
+    } else {
+      prevBtn.style.display = 'none';
+      nextBtn.style.display = 'none';
+    }
+  }
+  
+  function openModal(imgSrc) {
+    currentImageSet = [];
+    modalImg.src = imgSrc;
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    if (!modal) return;
+    updateNavVisibility();
+  }
+  
+  function openGallery(imagesArray, startIndex) {
+    currentImageSet = imagesArray;
+    currentIndex = startIndex;
+    modalImg.src = currentImageSet[currentIndex];
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    updateNavVisibility();
+  }
+  
+  function nextImage() {
+    if (currentImageSet.length > 0) {
+      currentIndex = (currentIndex + 1) % currentImageSet.length;
+      modalImg.src = currentImageSet[currentIndex];
+    }
+  }
+  
+  function prevImage() {
+    if (currentImageSet.length > 0) {
+      currentIndex = (currentIndex - 1 + currentImageSet.length) % currentImageSet.length;
+      modalImg.src = currentImageSet[currentIndex];
+    }
+  }
+  
+  function closeModal() {
     modal.style.display = 'none';
     document.body.style.overflow = '';
-  };
-
-  images.forEach(image => {
-    image.addEventListener('click', () => openModal(image.src, image.alt));
+    currentImageSet = [];
+  }
+  
+  // Single images
+  clickableImages.forEach(img => {
+    if (img) {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openModal(img.src);
+      });
+    }
   });
-
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (modal) {
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) closeModal();
+  
+  // Team members gallery
+  if (teamMembers.length > 0) {
+    const teamImages = Array.from(teamMembers).map(member => {
+      return member.getAttribute('data-src') || (member.querySelector('img') ? member.querySelector('img').src : null);
+    }).filter(src => src);
+    
+    teamMembers.forEach((member, idx) => {
+      if (teamImages[idx]) {
+        member.style.cursor = 'pointer';
+        member.addEventListener('click', () => {
+          openGallery(teamImages, idx);
+        });
+      }
     });
   }
+  
+  // Event listeners
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (prevBtn) prevBtn.addEventListener('click', prevImage);
+  if (nextBtn) nextBtn.addEventListener('click', nextImage);
+  
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  
+  document.addEventListener('keydown', (e) => {
+    if (modal.style.display !== 'flex') return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'ArrowRight') nextImage();
+  });
+  
+  // Touch swipe
+  let touchStartX = 0;
+  modal.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+  
+  modal.addEventListener('touchend', (e) => {
+    if (modal.style.display !== 'flex') return;
+    const touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextImage();
+      else prevImage();
+    }
+  });
 }
 
 // Cookie Consent
@@ -202,27 +269,16 @@ function initCookieConsent() {
   }
 }
 
-// Analytics (only if user consents)
 function enableAnalytics() {
   console.log('Analytics enabled');
 }
 
-// Scroll to Top Button
+// Scroll to Top function
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Add click handler for CTA buttons
-window.addEventListener('load', function() {
-  const ctaButtons = document.querySelectorAll('.btn-primary');
-  ctaButtons.forEach(button => {
-    if (!button.href || button.href === '#') {
-      button.style.cursor = 'pointer';
-    }
-  });
-});
-
-// Debounce function for scroll events
+// Debounce function
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -234,77 +290,3 @@ function debounce(func, wait) {
     timeout = setTimeout(later, wait);
   };
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Interactive SVG wheel code removed; remaining scripts handle UI and lightbox.
-});
-
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Get DOM elements
-    const wheelImage = document.getElementById('wheelImage');
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    const closeBtn = document.querySelector('.modal-close');
-    
-    // Function to open modal with the clicked image
-    function openModal() {
-        if (wheelImage && modal && modalImg) {
-            // Set modal image source to the wheel image source
-            modalImg.src = wheelImage.src;
-            modalImg.alt = wheelImage.alt;
-            // Display modal
-            modal.style.display = 'flex';
-            // Prevent body scrolling when modal is open
-            document.body.style.overflow = 'hidden';
-        }
-    }
-    
-    // Function to close modal
-    function closeModal() {
-        if (modal) {
-            modal.style.display = 'none';
-            // Restore body scrolling
-            document.body.style.overflow = '';
-        }
-    }
-    
-    // Add click event to wheel image (tap to view full screen)
-    if (wheelImage) {
-        wheelImage.addEventListener('click', openModal);
-        // Add touch-friendly feedback for mobile
-        wheelImage.style.cursor = 'pointer';
-    }
-    
-    // Add click event to close button
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
-    }
-    
-    // Close modal when clicking outside the image (on the modal background)
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            // If the click is directly on the modal background (not on modal-content or close button)
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-    }
-    
-    // Optional: Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
-            closeModal();
-        }
-    });
-    
-    // Handle touch events for mobile smoothness (prevent zoom conflicts)
-    if (wheelImage) {
-        wheelImage.addEventListener('touchstart', function(e) {
-            // Just ensures the click works; no extra action needed
-            // Prevents any default drag behavior on image
-            e.preventDefault();
-            openModal();
-        }, { passive: false });
-    }
-});

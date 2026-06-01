@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <!-- Header & Navigation -->
     <header>
         <nav class="container">
             <div class="logo-container">
@@ -22,13 +21,12 @@
                 <li><a href="services.html">Services</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <button class="menu-toggle">
+            <button class="menu-toggle" aria-label="Menu">
                 <span></span><span></span><span></span>
             </button>
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h1>About Moribo Financial Wellness</h1>
@@ -37,31 +35,28 @@
         </div>
     </section>
 
-    <!-- Investment Image Section -->
     <section class="section investment-section">
         <div class="container">
-            <img src="../assets/invest2.png" alt="Financial Investment Strategy" class="investment-image">
+            <img src="../assets/invest2.png" alt="Financial Investment Strategy" class="investment-image" loading="lazy">
         </div>
     </section>
 
-    <!-- Mission Section -->
     <section class="section">
         <div class="container">
             <h2 class="text-center mb-3"><i class="fas fa-target"></i> Our Mission & Vision</h2>
             <div class="two-col-grid">
                 <div class="card">
                     <h3>Our Mission</h3>
-                    <p>Moribo Financial Wellness Solution is dedicated to empowering individuals and organizations to achieve their financial goals and build sustainable futures...</p>
+                    <p>Moribo Financial Wellness Solution is dedicated to empowering individuals and organizations to achieve their financial goals and build sustainable futures through comprehensive financial wellness programs, expert guidance, and accessible solutions.</p>
                 </div>
                 <div class="card">
                     <h3>Our Vision</h3>
-                    <p>We envision a world where financial wellness is accessible to everyone...</p>
+                    <p>We envision a world where financial wellness is accessible to everyone, where individuals and communities have the knowledge, tools, and support to achieve lasting financial freedom and prosperity.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Team Section -->
     <section class="section section-light">
         <div class="container">
             <h2 class="text-center mb-3">Our Expert Team</h2>
@@ -70,16 +65,15 @@
             </p>
 
             <div class="team-grid" id="team-grid">
-                <!-- Images will be populated by JS or static -->
-                <div class="team-member" data-src="../Gallery/team.jpg" data-alt="Team Member 1">
+                <div class="team-member" data-src="../Gallery/team.jpg">
                     <img src="../Gallery/team.jpg" alt="Team Member 1" loading="lazy">
                     <div class="team-overlay"><p>View Larger</p></div>
                 </div>
-                <div class="team-member" data-src="../Gallery/team2.jpg" data-alt="Team Member 2">
+                <div class="team-member" data-src="../Gallery/team2.jpg">
                     <img src="../Gallery/team2.jpg" alt="Team Member 2" loading="lazy">
                     <div class="team-overlay"><p>View Larger</p></div>
                 </div>
-                <div class="team-member" data-src="../Gallery/team3.jpg" data-alt="Team Member 3">
+                <div class="team-member" data-src="../Gallery/team3.jpg">
                     <img src="../Gallery/team3.jpg" alt="Team Member 3" loading="lazy">
                     <div class="team-overlay"><p>View Larger</p></div>
                 </div>
@@ -87,9 +81,30 @@
         </div>
     </section>
 
-    <!-- Rest of your sections (Why Choose Us, Values, etc.) remain the same -->
+    <section class="section">
+        <div class="container">
+            <h2 class="text-center mb-3"><i class="fas fa-heart"></i> Why Choose Us</h2>
+            <div class="two-col-grid">
+                <div class="card">
+                    <h3><i class="fas fa-user-check"></i> Personalized Approach</h3>
+                    <p>We take the time to understand your unique financial situation and goals, providing tailored solutions that work for you.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> Proven Track Record</h3>
+                    <p>Our team has successfully helped hundreds of clients achieve financial stability and reach their goals.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-shield-alt"></i> Trusted Guidance</h3>
+                    <p>We provide transparent, ethical advice that puts your best interests first.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-calendar-check"></i> Ongoing Support</h3>
+                    <p>Financial wellness is a journey - we're with you every step of the way with continuous support and guidance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Footer (KEPT INTACT) -->
     <footer>
         <div class="container">
             <div class="footer-header">
@@ -125,14 +140,7 @@
         </div>
     </footer>
 
-    <!-- Image Modal -->
-    <div id="image-modal" class="image-modal">
-        <span class="modal-close">×</span>
-        <img id="modal-image" src="" alt="">
-    </div>
-
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
-    <script src="../js/img-validation.js"></script>
 </body>
 </html>

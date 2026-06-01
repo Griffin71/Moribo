@@ -1,5 +1,5 @@
-/* Moribo Financial Wellness Solution - New Color Palette & Base Styles */
-
+/* Moribo Financial Wellness Solution - Color Palette & Base Styles */
+/*Written by Kabelo Kgosana */
 :root {
   /* New Color Palette */
   --primary-brown: #352924;
@@ -217,16 +217,6 @@ a:hover {
 
 .padding-1 { padding: 1rem; }
 .padding-2 { padding: 2rem; }
-
-/* Interactive Elements */
-.interactive {
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.interactive:hover {
-  transform: scale(1.05);
-}
 
 /* Animations */
 @keyframes fadeIn {

@@ -1,72 +1,66 @@
+// Moribo Financial Wellness - Contact Form Validation
+//Written by Kabelo Kgosana
 document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('contact-form');
+  
+  if (!form) return;
+  
+  const messageContainer = document.createElement('div');
+  messageContainer.id = 'form-message';
+  form.appendChild(messageContainer);
 
-    const form = document.getElementById('contact-form');
-    const messageContainer = document.createElement('div');
-    messageContainer.id = 'form-message';
-    messageContainer.style.marginTop = '1rem';
-    messageContainer.style.padding = '1rem';
+  const badWords = ['fuck', 'shit', 'bitch', 'asshole', 'cunt', 'damn', 'bastard', 'idiot', 'stupid', 'moron', 'fucker', 'bitchy'];
+
+  function containsBadWords(text) {
+    if (!text) return false;
+    const lowerText = text.toLowerCase();
+    return badWords.some(word => lowerText.includes(word));
+  }
+
+  function showMessage(text, type) {
+    messageContainer.textContent = text;
+    messageContainer.style.backgroundColor = type === 'error' ? '#fee2e2' : '#d1fae5';
+    messageContainer.style.color = type === 'error' ? '#b91c1c' : '#166534';
+    messageContainer.style.border = type === 'error' ? '1px solid #fecaca' : '1px solid #a7f3d0';
     messageContainer.style.borderRadius = '4px';
-    form.appendChild(messageContainer);
+  }
 
-    // List of inappropriate words
-    const badWords = ['fuck', 'shit', 'bitch', 'asshole', 'cunt', 'damn', 'bastard', 'idiot', 'stupid', 'moron', 'fucker', 'bitchy'];
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
 
-    function containsBadWords(text) {
-        if (!text) return false;
-        const lowerText = text.toLowerCase();
-        return badWords.some(word => lowerText.includes(word));
+    messageContainer.textContent = '';
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !subject || !message) {
+      showMessage("Please fill in all required fields marked with *", "error");
+      return;
     }
 
-    function showMessage(text, type) {
-        messageContainer.textContent = text;
-        messageContainer.style.backgroundColor = type === 'error' ? '#fee2e2' : '#d1fae5';
-        messageContainer.style.color = type === 'error' ? '#b91c1c' : '#166534';
-        messageContainer.style.border = type === 'error' ? '1px solid #fecaca' : '1px solid #a7f3d0';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showMessage("Please enter a valid email address.", "error");
+      return;
     }
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+    if (containsBadWords(subject)) {
+      showMessage("Please remove inappropriate language from the Subject field.", "error");
+      return;
+    }
 
-        // Clear previous message
-        messageContainer.textContent = '';
+    if (containsBadWords(message)) {
+      showMessage("Please keep your message respectful and professional. Thank you.", "error");
+      return;
+    }
 
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const subject = document.getElementById('subject').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        // Required fields check
-        if (!name || !email || !subject || !message) {
-            showMessage("Please fill in all required fields marked with *", "error");
-            return;
-        }
-
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showMessage("Please enter a valid email address.", "error");
-            return;
-        }
-
-        // Check for bad words in Subject
-        if (containsBadWords(subject)) {
-            showMessage("Please remove inappropriate language from the Subject field.", "error");
-            return;
-        }
-
-        // Check for bad words in Message
-        if (containsBadWords(message)) {
-            showMessage("Please keep your message respectful and professional. Thank you.", "error");
-            return;
-        }
-
-        // Success
-        showMessage("Thank you! Your message has been received. We will get back to you soon.", "success");
-        
-        // Reset form after success
-        setTimeout(() => {
-            form.reset();
-            messageContainer.textContent = '';
-        }, 4000);
-    });
+    showMessage("Thank you! Your message has been received. We will get back to you soon.", "success");
+    
+    setTimeout(() => {
+      form.reset();
+      messageContainer.textContent = '';
+    }, 4000);
+  });
 });

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <!-- Header & Navigation -->
     <header>
         <nav class="container">
             <div class="logo-container">
@@ -21,13 +20,12 @@
                 <li><a href="services.html">Services</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <button class="menu-toggle">
+            <button class="menu-toggle" aria-label="Menu">
                 <span></span><span></span><span></span>
             </button>
         </nav>
     </header>
 
-    <!-- Hero -->
     <section class="hero">
         <div class="container">
             <h1>Get In Touch</h1>
@@ -36,11 +34,9 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section class="section">
         <div class="container">
             <div class="contact-grid">
-                <!-- Contact Form -->
                 <div>
                     <h2 class="contact-form-title"><i class="fas fa-envelope"></i> Send us a Message</h2>
                     <form id="contact-form" class="contact-form">
@@ -68,7 +64,6 @@
                     </form>
                 </div>
 
-                <!-- Contact Information -->
                 <div>
                     <h2 class="contact-form-title"><i class="fas fa-phone"></i> Contact Information</h2>
                     
@@ -85,7 +80,7 @@
 
                     <div class="card contact-card">
                         <h3>WhatsApp</h3>
-                        <p><a href="https://wa.me/2670926002" target="_blank"><strong>067 092 6002</strong></a></p>
+                        <p><a href="https://wa.me/2670926002" target="_blank" rel="noopener"><strong>067 092 6002</strong></a></p>
                     </div>
 
                     <div class="card contact-card">
@@ -102,24 +97,22 @@
         </div>
     </section>
 
-    <!-- Maps Section -->
     <section class="section maps-section">
         <div class="container">
             <h2 class="text-center">Visit Us</h2>
             <div class="maps-container">
                 <div class="map-item">
                     <h3>Main Office - Centurion</h3>
-                    <iframe src="https://www.google.com/maps/embed?pb=!4v1779894640591!6m8!1m7!1sCPmjXTrqEk8P9jfvE98ing!2m2!1d-25.83829097609246!2d28.17489482552374!3f348.29!4f-1.6599999999999966!5f0.7820865974627469" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!4v1779894640591!6m8!1m7!1sCPmjXTrqEk8P9jfvE98ing!2m2!1d-25.83829097609246!2d28.17489482552374!3f348.29!4f-1.6599999999999966!5f0.7820865974627469" allowfullscreen="" loading="lazy" title="Centurion Office Map"></iframe>
                 </div>
                 <div class="map-item">
                     <h3>Secondary Office - East London</h3>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3344.8218369984893!2d27.866842!3d-33.034824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDAyJzA1LjQiUyAyN8KwNTInMDAuNiJF!5e0!3m2!1sen!2sza!4v1779894694926!5m2!1sen!2sza" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3344.8218369984893!2d27.866842!3d-33.034824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDAyJzA1LjQiUyAyN8KwNTInMDAuNiJF!5e0!3m2!1sen!2sza!4v1779894694926!5m2!1sen!2sza" allowfullscreen="" loading="lazy" title="East London Office Map"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-header">
@@ -155,6 +148,7 @@
         </div>
     </footer>
 
+    <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/contact-validation.js"></script>
 </body>
