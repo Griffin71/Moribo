@@ -87,28 +87,25 @@
         </div>
     </section>
 
-    <!-- === FINANCIAL WELLNESS WHEEL === -->
-    <section class="wheel-section">
-        <h2><i class="fas fa-chart-pie"></i> The Financial Wellness Wheel</h2>
-        <p class="wheel-description">
-            This wheel represents our core financial wellness focus areas. Tap the image to view it in full screen and explore the services we offer.
-        </p>
-        <div id="wheel-container" class="wheel-container">
-            <img src="assets/Moribo%20Profile.pdf_17.png" alt="Financial Wellness Wheel" class="investment-image">
-        </div>
-    </section>
+   <!-- === FINANCIAL WELLNESS WHEEL === -->
+<section class="wheel-section">
+    <h2><i class="fas fa-chart-pie"></i> The Financial Wellness Wheel</h2>
+    <p class="wheel-description">
+        This wheel represents our core financial wellness focus areas. Tap the image to view it in full screen and explore the services we offer.
+    </p>
+    <div id="wheel-container" class="wheel-container">
+        <img src="assets/Moribo%20Profile.pdf_17.png" alt="Financial Wellness Wheel" class="investment-image" id="wheelImage">
+    </div>
+</section>
+
+<!-- Modal for full-screen viewing -->
+<div id="imageModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
 
     <!-- Modal -->
-    <div id="service-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div id="modal-icon" class="modal-icon"></div>
-            <h2 id="modal-title"></h2>
-            <div id="modal-description"></div>
-            <ul id="modal-benefits"></ul>
-            <a href="/pages/contact.html" id="modal-cta" class="cta-button">Get Started</a>
-        </div>
-    </div>
+    <!-- Legacy interactive service modal removed. Fullscreen image modal remains below. -->
 
     <!-- Maps Section -->
     <section class="section">
