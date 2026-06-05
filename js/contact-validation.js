@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const whatsappMessage = `Hello, I'm ${name}%0A%0A*Subject:* ${subject}%0A*Message:* ${message}%0A%0A*My Email:* ${email}%0A*My Phone:* ${phone}`;
     
     // CORRECT international format: 27 (country code) + 615814305 (number without 0)
-    // Your number 0615814305 -> remove 0 -> 615814305 -> add 27 -> 27615814305
+
     window.open(`https://wa.me/27615814305?text=${whatsappMessage}`, '_blank');
     
     // Show success message
