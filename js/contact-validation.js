@@ -1,5 +1,6 @@
-// Moribo Financial Wellness - Contact Form Validation
-//Written by Kabelo Kgosana
+// Moribo Financial Wellness - Contact Form Validation & WhatsApp
+// Written by Kabelo Kgosana
+
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('contact-form');
   
@@ -23,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
     messageContainer.style.color = type === 'error' ? '#b91c1c' : '#166534';
     messageContainer.style.border = type === 'error' ? '1px solid #fecaca' : '1px solid #a7f3d0';
     messageContainer.style.borderRadius = '4px';
+    messageContainer.style.padding = '12px';
+    messageContainer.style.marginTop = '16px';
   }
 
   form.addEventListener('submit', function(e) {
@@ -32,9 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
     const subject = document.getElementById('subject').value.trim();
     const message = document.getElementById('message').value.trim();
 
+    // Validation
     if (!name || !email || !subject || !message) {
       showMessage("Please fill in all required fields marked with *", "error");
       return;
@@ -56,11 +61,21 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    showMessage("Thank you! Your message has been received. We will get back to you soon.", "success");
+    // Create WhatsApp message
+    const whatsappMessage = `Hello, I'm ${name}%0A%0A*Subject:* ${subject}%0A*Message:* ${message}%0A%0A*My Email:* ${email}%0A*My Phone:* ${phone}`;
     
+    // Opens WhatsApp (using local format)
+    window.open(`https://wa.me/0615814305?text=${whatsappMessage}`, '_blank');
+    
+    // Show success message
+    showMessage("Thank you! Redirecting to WhatsApp... Please send your message.", "success");
+    
+    // Reset form after 3 seconds
     setTimeout(() => {
       form.reset();
-      messageContainer.textContent = '';
-    }, 4000);
+      setTimeout(() => {
+        messageContainer.textContent = '';
+      }, 2000);
+    }, 3000);
   });
 });
