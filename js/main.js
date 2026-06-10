@@ -290,3 +290,136 @@ function debounce(func, wait) {
     timeout = setTimeout(later, wait);
   };
 }
+
+// Hero Section - 4 Random Stock Images that shift/rotate
+(function() {
+    'use strict';
+
+    // Array of 4 stock images (financial advisor category)
+    const stockImages = [
+        "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&w=1600", //WORKS  // Advisor with client
+        "https://images.pexels.com/photos/4476371/pexels-photo-4476371.jpeg?auto=compress&w=1600", //WORKS  // Business meeting
+        "https://images.pexels.com/photos/8441820/pexels-photo-8441820.jpeg?auto=compress&w=1600", //WORKS // Investment planning
+        "https://images.pexels.com/photos/4386373/pexels-photo-4386373.jpeg?auto=compress&w=1600"  //WORKS // Growth & wealth
+    ];
+
+    const hero = document.querySelector('.hero');
+    const heroBg = document.querySelector('.hero-bg');
+    const learnMoreBtn = document.querySelector('.btn-primary');
+    
+    let currentImageIndex = 0;
+    let intervalId = null;
+
+    // Function to change to a random image
+    function changeRandomImage() {
+        let newIndex;
+        do {
+            newIndex = Math.floor(Math.random() * stockImages.length);
+        } while (newIndex === currentImageIndex && stockImages.length > 1);
+        
+        currentImageIndex = newIndex;
+        
+        if (heroBg) {
+            heroBg.style.opacity = '0';
+            setTimeout(() => {
+                heroBg.src = stockImages[currentImageIndex];
+                heroBg.style.opacity = '1';
+            }, 500);
+        }
+    }
+
+    // Function to change to next image (sequential, for variety)
+    function changeNextImage() {
+        currentImageIndex = (currentImageIndex + 1) % stockImages.length;
+        
+        if (heroBg) {
+            heroBg.style.opacity = '0';
+            setTimeout(() => {
+                heroBg.src = stockImages[currentImageIndex];
+                heroBg.style.opacity = '1';
+            }, 500);
+        }
+    }
+
+    // Random shift: sometimes random, sometimes sequential (more natural)
+    function smartShiftImages() {
+        const randomChoice = Math.random();
+        if (randomChoice < 0.6) {
+            // 60% chance: go to next image sequentially
+            changeNextImage();
+        } else {
+            // 40% chance: go to random different image
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * stockImages.length);
+            } while (newIndex === currentImageIndex && stockImages.length > 1);
+            currentImageIndex = newIndex;
+            
+            if (heroBg) {
+                heroBg.style.opacity = '0';
+                setTimeout(() => {
+                    heroBg.src = stockImages[currentImageIndex];
+                    heroBg.style.opacity = '1';
+                }, 500);
+            }
+        }
+    }
+
+    // Make hero full screen height
+    function setHeroFullHeight() {
+        if (hero) {
+            hero.style.minHeight = window.innerHeight + 'px';
+        }
+    }
+
+    // Smooth scroll for Learn More button
+    if (learnMoreBtn) {
+        learnMoreBtn.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetEl = document.querySelector(href);
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    }
+
+    // Set initial random image on page load
+    if (heroBg) {
+        currentImageIndex = Math.floor(Math.random() * stockImages.length);
+        heroBg.src = stockImages[currentImageIndex];
+        heroBg.style.transition = 'opacity 0.8s ease-in-out';
+        heroBg.style.opacity = '1';
+        
+        // Start interval to shift images every 5 seconds
+        intervalId = setInterval(smartShiftImages, 5000);
+    }
+
+    // Handle resize
+    window.addEventListener('resize', function() {
+        setHeroFullHeight();
+    });
+
+    // Initial call
+    setHeroFullHeight();
+
+    // Clean up interval if needed (optional, but good practice)
+    window.addEventListener('beforeunload', function() {
+        if (intervalId) {
+            clearInterval(intervalId);
+        }
+    });
+
+    // Smooth scroll for any anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+})();
