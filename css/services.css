@@ -1,0 +1,119 @@
+/* Per-section visuals, highlight animation, anchor offsets, and small utilities */
+
+/* Base layout */
+.section { position: relative; padding: 3rem 0; --accent: #00a89c; --accent-rgb: 0,168,156; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+.services-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) { .services-grid { grid-template-columns: repeat(2,1fr); } }
+@media (min-width: 992px) { .services-grid { grid-template-columns: repeat(4,1fr); } }
+
+.card {
+  padding: 1.25rem;
+  background: #fff;
+  transition: transform .18s ease, box-shadow .18s ease;
+  min-height: 120px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}
+.card:hover { transform: translateY(-6px); }
+
+/* Highlight animation uses section's --accent-rgb */
+@keyframes sectionPulse {
+  0% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb),0); }
+  50% { box-shadow: 0 0 0 12px rgba(var(--accent-rgb),0.12); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb),0); }
+}
+.section.highlight-target { animation: sectionPulse .9s ease-in-out 3; }
+
+/* Card-level highlight (for individual cards like payroll) */
+.highlight-card { box-shadow: 0 8px 30px rgba(0,0,0,0.12); transform: translateY(-4px); }
+
+.card-title { margin-bottom:.5rem; font-size:1.05rem; }
+.card p { margin:0; line-height:1.4; font-size:0.95rem; }
+
+/* SECTION 1: Financial Wellness - rounded cards, teal accents */
+#financial-wellness { --accent: #00a89c; --accent-rgb: 0,168,156; }
+#financial-wellness .card { border-radius:14px; background:linear-gradient(180deg,#f6fffd,#fff); border:1px solid rgba(0,168,156,0.08); color:#064b48; }
+#financial-wellness .card-title { color:var(--accent); font-weight:600; }
+
+/* SECTION 2: Debt Management - diagonal stripes, warm/orange accents */
+#debt-management { --accent: #ff7a2d; --accent-rgb: 255,122,45; }
+#debt-management .card {
+  border-radius:10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.06) 0 12px, transparent 12px 24px),
+    linear-gradient(180deg,#fff6f2,#fff);
+  border:1px solid rgba(255,122,45,0.08);
+  color:#5a2f14;
+}
+#debt-management .card-title { color:var(--accent); font-weight:700; }
+
+/* SECTION 3: Budgeting - dotted borders, green accents */
+#budgeting-coaching { --accent: #26a65b; --accent-rgb: 38,166,91; }
+#budgeting-coaching .card {
+  border-radius:10px;
+  border:2px dotted rgba(38,166,91,0.16);
+  background:#f8fff8;
+  color:#1c5b31;
+}
+#budgeting-coaching .card-title { color:var(--accent); font-weight:600; }
+
+/* SECTION 4: Facilitated Solutions - shadow depth, purple accents */
+#facilitated-solutions { --accent: #7b5cff; --accent-rgb: 123,92,255; }
+#facilitated-solutions .card {
+  border-radius:10px;
+  background:linear-gradient(180deg,#fff,#f9f7ff);
+  box-shadow: 0 8px 20px rgba(123,92,255,0.06);
+  border:1px solid rgba(123,92,255,0.05);
+  color:#3b2a66;
+}
+#facilitated-solutions .card-title { color:var(--accent); font-weight:700; }
+
+/* Payroll/Lending look (gradient with icon emphasis) */
+#payroll-card {
+  border-radius:12px;
+  background: linear-gradient(135deg,#6a37ff 0%, #b16bff 100%);
+  color:#fff;
+  box-shadow: 0 10px 30px rgba(107,66,255,0.18);
+  border:none;
+}
+#payroll-card .card-title { color: rgba(255,255,255,0.95); }
+
+/* SECTION 5: Upskilling - rounded top corners only, blue accents */
+#upskilling-workshops { --accent: #1e88ff; --accent-rgb: 30,136,255; }
+#upskilling-workshops .card {
+  border-radius:12px 12px 0 0;
+  background:linear-gradient(180deg,#f5fbff,#fff);
+  border-bottom:3px solid rgba(30,136,255,0.08);
+  color:#103b66;
+}
+#upskilling-workshops .card-title { color:var(--accent); font-weight:600; }
+
+/* SECTION 6: Wellness Events - left border accent, gold tones */
+#wellness-events { --accent: #c79a1d; --accent-rgb: 199,154,29; }
+#wellness-events .card {
+  border-radius:10px;
+  background:#fffaf2;
+  border-left:6px solid rgba(199,154,29,0.95);
+  padding-left:1rem;
+  color:#664f18;
+}
+#wellness-events .card-title { color:var(--accent); font-weight:700; }
+
+/* Anchor offsets (replace inline scroll-margin-top) */
+#voluntary-payroll, #lending-solutions { display:block; height:1px; margin-top:-80px; padding-top:80px; }
+
+/* CTA & footer text styles (moved from inline) */
+.cta-text { font-size: 1.1rem; margin-bottom: 2rem; }
+.footer-note { margin-top: 0.5rem; font-size: 0.85rem; color: rgba(0,0,0,0.75); }
+
+/* Responsive tweaks */
+@media (max-width:480px) {
+  .card { padding:1rem; min-height:100px; }
+  .services-grid { gap: 0.8rem; }
+}

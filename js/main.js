@@ -423,3 +423,261 @@ function debounce(func, wait) {
         });
     });
 })();
+
+// Interactive Wellness Table - 7 Topics
+(function() {
+    'use strict';
+
+    // Mapping: data-target -> section ID on services page
+    const sectionMap = {
+        'voluntary-payroll': 'voluntary-payroll',
+        'financial-wellness': 'financial-wellness', 
+        'lending-solutions': 'lending-solutions',
+        'upskilling-workshops': 'upskilling-workshops',
+        'debt-management': 'debt-management',
+        'budgeting-coaching': 'budgeting-coaching',
+        'wellness-events': 'wellness-events'
+    };
+
+    // Add IDs to sections dynamically
+    function addSectionIds() {
+        const sections = document.querySelectorAll('.section');
+        
+        sections.forEach(section => {
+            const titleElement = section.querySelector('h2');
+            if (titleElement) {
+                const titleText = titleElement.innerText.toLowerCase();
+                
+                if (titleText.includes('payroll') || titleText.includes('deduction')) {
+                    section.id = 'voluntary-payroll';
+                } else if (titleText.includes('personal financial') || titleText.includes('wellness management')) {
+                    section.id = 'financial-wellness';
+                } else if (titleText.includes('lending') || titleText.includes('financing')) {
+                    section.id = 'lending-solutions';
+                } else if (titleText.includes('upskilling') || titleText.includes('training')) {
+                    section.id = 'upskilling-workshops';
+                } else if (titleText.includes('debt')) {
+                    section.id = 'debt-management';
+                } else if (titleText.includes('budget') || titleText.includes('coaching')) {
+                    section.id = 'budgeting-coaching';
+                } else if (titleText.includes('event') || titleText.includes('wellness programs')) {
+                    section.id = 'wellness-events';
+                }
+            }
+        });
+    }
+
+    // Smooth scroll to section with highlight
+    function scrollToSection(sectionId, clickedItem) {
+        const targetSection = document.getElementById(sectionId);
+        
+        if (targetSection) {
+            document.querySelectorAll('.highlight-target').forEach(el => {
+                el.classList.remove('highlight-target');
+            });
+            
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            setTimeout(() => {
+                targetSection.classList.add('highlight-target');
+                setTimeout(() => {
+                    targetSection.classList.remove('highlight-target');
+                }, 2500);
+            }, 500);
+        } else {
+            // Navigate to services page
+            localStorage.setItem('highlightSection', sectionId);
+            window.location.href = 'pages/services.html#' + sectionId;
+        }
+    }
+
+    // Handle clicks
+    function initTableInteractions() {
+        const tableItems = document.querySelectorAll('.table-item');
+        
+        tableItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                
+                if (targetId && sectionMap[targetId]) {
+                    // Visual feedback
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                    
+                    scrollToSection(sectionMap[targetId], this);
+                }
+            });
+        });
+    }
+
+  // Handle URL hash and stored highlight on load. Wait for full window.load for reliable scroll positions.
+  function handleHashOnLoad() {
+    function applyHighlightToId(id) {
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const sectionEl = el.closest('.section') || el;
+      // Scroll into view after layout settled
+      try {
+        sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (e) {
+        window.scrollTo({ top: sectionEl.offsetTop, behavior: 'smooth' });
+      }
+      sectionEl.classList.add('highlight-target');
+      setTimeout(() => sectionEl.classList.remove('highlight-target'), 3000);
+    }
+
+    // Apply stored highlight from index navigation
+    const storedHighlight = localStorage.getItem('highlightSection');
+    if (storedHighlight) {
+      localStorage.removeItem('highlightSection');
+      // Wait for load then apply
+      window.addEventListener('load', () => setTimeout(() => applyHighlightToId(storedHighlight), 60));
+    }
+
+    // If there's a hash in URL, apply after load
+    if (window.location.hash) {
+      const hash = decodeURIComponent(window.location.hash.substring(1));
+      window.addEventListener('load', () => setTimeout(() => applyHighlightToId(hash), 60));
+    }
+  }
+
+    function init() {
+        addSectionIds();
+        initTableInteractions();
+        handleHashOnLoad();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+// Interactive Wellness Table - 7 Topics with Highlight
+(function() {
+    'use strict';
+
+    // Mapping: data-target -> section ID on services.html
+    const sectionMap = {
+        'financial-wellness': 'financial-wellness',
+        'debt-management': 'debt-management',
+        'budgeting-coaching': 'budgeting-coaching',
+        'facilitated-solutions': 'facilitated-solutions',
+        'upskilling-workshops': 'upskilling-workshops',
+        'wellness-events': 'wellness-events',
+        'voluntary-payroll': 'voluntary-payroll',
+        'lending-solutions': 'lending-solutions'
+    };
+
+    // Special handling for payroll and lending (they're inside Facilitated Solutions)
+    function handlePayrollLending(targetId) {
+        if (targetId === 'voluntary-payroll') {
+            // Find the payroll card inside Facilitated Solutions
+            const payrollCard = document.querySelector('#facilitated-solutions .card:last-child');
+            if (payrollCard) {
+                payrollCard.classList.add('highlight-card');
+                setTimeout(() => {
+                    payrollCard.classList.remove('highlight-card');
+                }, 3000);
+            }
+        } else if (targetId === 'lending-solutions') {
+            // Find the lending card (Responsible Lending & Financing)
+            const cards = document.querySelectorAll('#facilitated-solutions .card');
+            const lendingCard = cards[1]; // Second card in Facilitated Solutions
+            if (lendingCard) {
+                lendingCard.classList.add('highlight-card');
+                setTimeout(() => {
+                    lendingCard.classList.remove('highlight-card');
+                }, 3000);
+            }
+        }
+    }
+
+    // Smooth scroll to section with highlight
+    function scrollToSection(sectionId, targetId) {
+        let targetSection = document.getElementById(sectionId);
+        
+        // Special handling for payroll and lending
+        if (targetId === 'voluntary-payroll' || targetId === 'lending-solutions') {
+            targetSection = document.getElementById('facilitated-solutions');
+        }
+        
+        if (targetSection) {
+            // Remove existing highlights
+            document.querySelectorAll('.highlight-target').forEach(el => {
+                el.classList.remove('highlight-target');
+            });
+            
+            // Smooth scroll
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Add highlight after scroll
+            setTimeout(() => {
+                targetSection.classList.add('highlight-target');
+                
+                // Handle payroll/lending specific card highlight
+                if (targetId === 'voluntary-payroll' || targetId === 'lending-solutions') {
+                    handlePayrollLending(targetId);
+                }
+                
+                // Remove section highlight after 3 seconds
+                setTimeout(() => {
+                    targetSection.classList.remove('highlight-target');
+                }, 3000);
+            }, 500);
+        }
+    }
+
+    // Handle clicks on table items
+    function initTableInteractions() {
+        const tableItems = document.querySelectorAll('.table-item');
+        
+        tableItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('data-target');
+                
+                if (targetId && sectionMap[targetId]) {
+                    // Visual feedback on click
+                    this.style.transform = 'scale(0.97)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                    
+                    // Store which section to highlight after navigation
+                    localStorage.setItem('highlightSection', targetId);
+                    
+                    // Navigate to services.html with hash
+                    window.location.href = 'pages/services.html#' + sectionMap[targetId];
+                }
+            });
+        });
+    }
+
+    // Handle highlight on services.html page load
+  function handleIncomingHighlight() {
+    // Reuse handleHashOnLoad behavior — the other block already handles stored highlight and hash after load.
+    // This function remains for backward compatibility but will call handleHashOnLoad to perform the work.
+    handleHashOnLoad();
+  }
+
+    // Run on page load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            initTableInteractions();
+            handleIncomingHighlight();
+        });
+    } else {
+        initTableInteractions();
+        handleIncomingHighlight();
+    }
+})();

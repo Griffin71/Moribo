@@ -50,7 +50,7 @@ nav.container {
 }
 
 .nav-links a {
-  color: var(--primary-brown);
+  color: var(--moribo-burgundy);
   font-weight: 500;
   font-size: 0.95rem;
   position: relative;
@@ -58,7 +58,7 @@ nav.container {
 }
 
 .nav-links a:hover {
-  color: var(--teal-accent);
+  color: var(--light-blue);
 }
 
 .nav-links a::after {
@@ -147,13 +147,13 @@ body {
 }
 
 .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(78, 59, 50, 0.7) 0%, rgba(35, 28, 24, 0.85) 100%);
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0,87,183,0.6) 0%, rgba(0,174,239,0.45) 100%);
+  z-index: 1;
 }
 
 .hero .container {
@@ -173,16 +173,16 @@ body {
 }
 
 .hero-slogan {
-    font-size: clamp(0.8rem, 4vw, 1rem);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    font-weight: 600;
-    background: rgba(0, 163, 196, 0.25);
-    display: inline-block;
-    padding: 0.4rem 1.2rem;
-    border-radius: 40px;
-    backdrop-filter: blur(4px);
-    margin-bottom: 1.5rem;
+  font-size: clamp(0.8rem, 4vw, 1rem);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: rgba(0,174,239,0.18);
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border-radius: 40px;
+  backdrop-filter: blur(4px);
+  margin-bottom: 1.5rem;
 }
 
 .hero p {
@@ -194,43 +194,26 @@ body {
     font-weight: 400;
     opacity: 0.95;
 }
-
 .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--accent-teal);
-    color: white;
-    font-weight: 600;
-    padding: 0.9rem 2.2rem;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: all 0.25s ease;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
-    border: 1px solid rgba(255,255,255,0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-blue);
+  color: white;
+  font-weight: 600;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.06);
 }
-
 .btn-primary:hover {
-    background-color: #008daa;
-    transform: translateY(-3px);
-    box-shadow: 0 12px 22px rgba(0,0,0,0.25);
+  background-color: var(--light-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.22);
 }
-
-/* Animation */
-@keyframes fadeSlideUp {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Mobile Devices (smallest to 640px) */
-@media (max-width: 640px) {
     .hero .container {
         padding: 1rem;
     }
@@ -246,11 +229,10 @@ body {
     .hero h1 {
         margin-bottom: 0.75rem;
     }
-    .hero p {
-        margin-bottom: 1.5rem;
-        font-size: 0.95rem;
-    }
-}
+  .hero p {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
 
 /* Tablet Devices (641px to 1024px) */
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -1033,4 +1015,333 @@ footer {
   .wheel-description {
     font-size: 0.9rem;
   }
+}
+
+/* Wellness Table - Interactive Grid (7 topics) */
+.wellness-table {
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.single-item-row {
+    display: flex;
+    justify-content: center;
+}
+
+.single-item-row .table-item {
+    max-width: 380px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.table-item {
+    background: linear-gradient(135deg, #4e3b32 0%, #352924 100%);
+    border-radius: 20px;
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 163, 196, 0.3);
+}
+
+.table-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    border-color: var(--accent-teal);
+    background: linear-gradient(135deg, #5e4b41 0%, #443832 100%);
+}
+
+.table-item:active {
+    transform: translateY(-2px);
+}
+
+.item-icon {
+    font-size: 2.2rem;
+    color: var(--accent-teal);
+    margin-bottom: 0.75rem;
+}
+
+.item-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+}
+
+.item-desc {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Highlight effect */
+.highlight-target {
+    animation: highlightPulse 1.5s ease-in-out 3;
+    scroll-margin-top: 80px;
+}
+
+@keyframes highlightPulse {
+    0% {
+        background-color: transparent;
+        box-shadow: 0 0 0 0 rgba(0, 163, 196, 0);
+    }
+    50% {
+        background-color: rgba(0, 163, 196, 0.15);
+        box-shadow: 0 0 0 8px rgba(0, 163, 196, 0.3);
+        border-radius: 16px;
+    }
+    100% {
+        background-color: transparent;
+        box-shadow: 0 0 0 0 rgba(0, 163, 196, 0);
+    }
+}
+
+/* Tablet - show 2 columns then wrap */
+@media (max-width: 900px) {
+    .table-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    
+    .single-item-row .table-item {
+        max-width: 100%;
+    }
+}
+
+/* Mobile - 1 column */
+@media (max-width: 600px) {
+    .table-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .wellness-table {
+        gap: 1rem;
+        padding: 0 0.75rem;
+    }
+    
+    .table-item {
+        padding: 1.25rem 1rem;
+    }
+    
+    .item-icon {
+        font-size: 1.8rem;
+    }
+    
+    .item-title {
+        font-size: 0.95rem;
+    }
+    
+    .item-desc {
+        font-size: 0.7rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .table-item {
+        padding: 1rem 0.75rem;
+    }
+    
+    .item-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Landscape mode */
+@media (max-width: 768px) and (orientation: landscape) {
+    .table-row {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .table-item {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .item-icon {
+        font-size: 1.2rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .item-title {
+        font-size: 0.7rem;
+    }
+    
+    .item-desc {
+        display: none;
+    }
+}
+
+/* Wellness Table - 7 Topics Interactive Grid */
+.wheel-section {
+    padding: 4rem 1.5rem;
+    background: var(--off-white);
+    text-align: center;
+}
+
+.wheel-section h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: var(--primary-brown);
+    margin-bottom: 1rem;
+}
+
+.wheel-description {
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    color: #5e5047;
+}
+
+.wellness-table {
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.table-item {
+    background: linear-gradient(135deg, #4e3b32 0%, #352924 100%);
+    border-radius: 20px;
+    padding: 2rem 1.25rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 163, 196, 0.3);
+}
+
+.table-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.25);
+    border-color: var(--accent-teal);
+    background: linear-gradient(135deg, #5e4b41 0%, #443832 100%);
+}
+
+.table-item:active {
+    transform: translateY(-3px);
+}
+
+.item-icon {
+    font-size: 2.5rem;
+    color: var(--accent-teal);
+    margin-bottom: 1rem;
+}
+
+.item-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.item-desc {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Highlight effect for targeted section */
+.highlight-target {
+    animation: highlightGlow 3s ease-in-out forwards;
+    scroll-margin-top: 80px;
+}
+
+@keyframes highlightGlow {
+    0% {
+        background-color: transparent;
+        box-shadow: 0 0 0 0 rgba(0, 163, 196, 0);
+        border-left: 0px solid var(--accent-teal);
+    }
+    10% {
+        background-color: rgba(0, 163, 196, 0.1);
+        box-shadow: 0 0 0 4px rgba(0, 163, 196, 0.3);
+        border-left: 4px solid var(--accent-teal);
+    }
+    90% {
+        background-color: rgba(0, 163, 196, 0.05);
+        box-shadow: 0 0 0 2px rgba(0, 163, 196, 0.15);
+        border-left: 4px solid var(--accent-teal);
+    }
+    100% {
+        background-color: transparent;
+        box-shadow: 0 0 0 0 rgba(0, 163, 196, 0);
+        border-left: 0px solid var(--accent-teal);
+    }
+}
+
+/* Card highlight for Payroll and Lending specific cards */
+.highlight-card {
+    animation: cardPulse 2.5s ease-in-out forwards;
+}
+
+@keyframes cardPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    20% {
+        transform: scale(1.02);
+        box-shadow: 0 0 0 4px var(--accent-teal), 0 10px 25px rgba(0,0,0,0.2);
+        background: linear-gradient(135deg, #5e4b41 0%, #443832 100%);
+    }
+    80% {
+        transform: scale(1.01);
+        box-shadow: 0 0 0 2px var(--accent-teal);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .table-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .table-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .wellness-table {
+        padding: 0 0.75rem;
+    }
+    
+    .table-item {
+        padding: 1.25rem 1rem;
+    }
+    
+    .item-icon {
+        font-size: 2rem;
+    }
+    
+    .item-title {
+        font-size: 1rem;
+    }
 }

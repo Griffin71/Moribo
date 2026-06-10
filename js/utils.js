@@ -26,8 +26,9 @@ function isValidEmail(email) {
 
 //Validate phone number
 function isValidPhone(phone) {
- const phoneRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //check validation if true
- return phoneRegex.test(phone);
+  // Basic phone validation: digits, spaces, +, -, parentheses allowed, min 7 characters
+  const phoneRegex = /^[0-9+()\-\s]{7,20}$/;
+  return phoneRegex.test(phone);
 }
 
 // Get query parameter
@@ -43,6 +44,13 @@ function copyToClipboard(text) {
   }).catch(err => {
     console.error('Failed to copy:', err);
   });
+}
+
+// Navigate from index (project root) to services page with a hash
+function navigateToServicesSection(id) {
+  if (!id) return;
+  const hash = id.startsWith('#') ? id : `#${id}`;
+  window.location.href = `pages/services.html${hash}`;
 }
 
 // Track event
@@ -62,5 +70,6 @@ window.utils = {
   isValidEmail,
   getQueryParameter,
   copyToClipboard,
-  trackEvent
+  trackEvent,
+  navigateToServicesSection
 };
