@@ -399,15 +399,20 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-top: 1.5rem;
+  width: 100%;
 }
 
 .news-card,
 .gallery-card,
 .video-card {
   background-color: var(--white);
+  border: 1px solid rgba(0, 87, 183, 0.14);
   border-radius: 12px;
   box-shadow: 0 4px 12px var(--shadow);
   overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -448,8 +453,10 @@ body {
 
 .gallery-card img,
 .video-card iframe {
-  width: 100%;
   display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
 }
 
 .gallery-card img {
@@ -458,13 +465,56 @@ body {
 }
 
 .gallery-card .card-content,
-.video-card .card-content {
+.video-card .card-content,
+.news-card {
   padding: 1rem;
+  box-sizing: border-box;
 }
 
 .video-card iframe {
   aspect-ratio: 16 / 9;
+  min-height: 0;
   border: 0;
+}
+
+.news-card p,
+.gallery-card p,
+.video-card p,
+.news-card h3,
+.gallery-card h3,
+.video-card h3 {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 640px) {
+  .news-grid,
+  .gallery-grid,
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .news-card,
+  .gallery-card,
+  .video-card {
+    border-radius: 14px;
+    border: 1px solid rgba(0, 87, 183, 0.18);
+  }
+
+  .news-card,
+  .gallery-card .card-content,
+  .video-card .card-content {
+    padding: 0.95rem;
+  }
+
+  .gallery-card img {
+    height: 180px;
+  }
+
+  .video-card iframe {
+    min-height: 210px;
+  }
 }
 
 /* Maps Container */
