@@ -1,0 +1,182 @@
+/* ============================================================
+   FINANCIAL WELLNESS WHEEL — styles
+   Token system
+   Colour  : navy #0A1628 (bg) / ink #061020 (deep) / mist #C9D6EC (muted text)
+             gold #E8B85C (dividers + arrows)
+   Wedges  : purple #8B5CF6 · red #E5484D · orange #F2994A · white #FFFFFF
+             neon-green #4ADE80 · yellow #F5C542 · light-blue #4EC3F7 · blue #3B6FE0
+   Type    : display "Sora" (600/700/800) · body "Inter"
+   ============================================================ */
+
+#financial-wellness-wheel{
+  --fw-navy:#0A1628;
+  --fw-navy-deep:#061020;
+  --fw-panel:#101f38;
+  --fw-panel-border:#25406b;
+  --fw-mist:#c9d6ec;
+  --fw-mist-dim:#8ea3c7;
+  --fw-gold:#e8b85c;
+  --fw-white:#ffffff;
+
+  --fw-c-budgeting:#8B5CF6;
+  --fw-c-debt:#E5484D;
+  --fw-c-insurance:#F2994A;
+  --fw-c-payroll:#FFFFFF;
+  --fw-c-lending:#4ADE80;
+  --fw-c-upskilling:#F5C542;
+  --fw-c-events:#4EC3F7;
+  --fw-c-personal:#3B6FE0;
+
+  font-family:'Inter',system-ui,sans-serif;
+  background:
+    radial-gradient(ellipse at 20% -10%, #16294a 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 110%, #142140 0%, transparent 50%),
+    var(--fw-navy);
+  color:var(--fw-mist);
+  padding:clamp(2.5rem,6vw,5rem) clamp(1.25rem,5vw,3.5rem);
+  box-sizing:border-box;
+  overflow:hidden;
+}
+#financial-wellness-wheel *{ box-sizing:border-box; }
+#financial-wellness-wheel .fw-hidden{ display:none !important; }
+
+/* ---------------- header ---------------- */
+.fw-header{ max-width:760px; margin:0 auto clamp(2rem,5vw,3.5rem); text-align:center; }
+.fw-eyebrow{
+  font-family:'Sora',sans-serif; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  font-size:.72rem; color:var(--fw-gold); margin:0 0 .75rem;
+}
+.fw-title{
+  font-family:'Sora',sans-serif; font-weight:800; color:var(--fw-white);
+  font-size:clamp(1.6rem,4vw,2.6rem); line-height:1.15; margin:0 0 .85rem; letter-spacing:-.01em;
+}
+.fw-subtitle{ font-size:clamp(.92rem,1.6vw,1.05rem); color:var(--fw-mist-dim); margin:0; line-height:1.6; }
+
+/* ---------------- layout ---------------- */
+.fw-layout{
+  display:flex;
+  justify-content:center;
+  max-width:640px; margin:0 auto;
+}
+
+/* ---------------- wheel stage ---------------- */
+.fw-wheel-wrap{ display:flex; flex-direction:column; align-items:center; gap:1.5rem; }
+
+.fw-wheel-stage{
+  position:relative;
+  width:100%;
+  max-width:520px;
+  aspect-ratio:1/1;
+  margin:0 auto;
+  filter:drop-shadow(0 25px 45px rgba(0,0,0,.5));
+}
+
+.fw-wheel-svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+
+.fw-wheel-svg a{ cursor:pointer; }
+.fw-wheel-svg a:focus{ outline:none; }
+.fw-slice{
+  stroke:var(--fw-navy-deep);
+  stroke-width:3;
+  filter:url(#fwSliceShadow);
+  transition:transform .35s cubic-bezier(.2,.9,.3,1.3), filter .25s ease;
+  transform-box:fill-box;
+  transform-origin:center;
+}
+.fw-wheel-svg a:hover .fw-slice,
+.fw-wheel-svg a:focus-visible .fw-slice{ transform:scale(1.045) translateY(-2%); }
+
+/* decorative arrows / dividers — purely visual, never interactive */
+.fw-arrows{ pointer-events:none; }
+.fw-arrow{ fill:var(--fw-gold); opacity:.9; }
+.fw-arrow-arc{ fill:none; stroke:var(--fw-gold); stroke-width:2; opacity:.5; stroke-linecap:round; }
+.fw-spoke-line{ stroke:rgba(230,238,250,.15); stroke-width:1.5; pointer-events:none; }
+
+/* center hub */
+#fwHubCircle{ pointer-events:none; }
+.fw-hub-content{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; width:30%; pointer-events:none;
+}
+.fw-hub-content i{ color:var(--fw-gold); font-size:clamp(1.1rem,2.4vw,1.6rem); margin-bottom:.35rem; }
+.fw-hub-content span{
+  font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(.6rem,1.15vw,.78rem);
+  color:var(--fw-white); line-height:1.25; letter-spacing:.02em;
+}
+
+/* wedge label links (HTML overlay, positioned via inline style from JS) */
+.fw-wheel-labels{ position:absolute; inset:0; }
+.fw-slice-btn{
+  position:absolute;
+  top:0; left:0;
+  transform:translate(-50%,-50%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.3rem;
+  width:clamp(64px,15%,92px);
+  height:clamp(64px,15%,92px);
+  border-radius:999px;
+  border:1.5px solid rgba(255,255,255,.28);
+  background:rgba(6,16,32,.38);
+  backdrop-filter:blur(2px);
+  color:var(--fw-white);
+  font-family:'Sora',sans-serif;
+  text-decoration:none;
+  cursor:pointer;
+  padding:.4rem;
+  text-align:center;
+  transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.fw-slice-btn i{ font-size:clamp(1rem,2.1vw,1.3rem); }
+.fw-slice-btn .fw-slice-label{
+  font-size:clamp(.56rem,1.05vw,.66rem); font-weight:600; line-height:1.15;
+}
+.fw-slice-btn:hover,
+.fw-slice-btn:focus-visible{
+  transform:translate(-50%,-50%) scale(1.08);
+  background:rgba(6,16,32,.62);
+  border-color:var(--fw-gold);
+  outline:none;
+  box-shadow:0 0 0 4px rgba(232,184,92,.18);
+}
+/* payroll wedge is white — force dark text/icon for contrast */
+.fw-slice-btn.fw-on-white{ color:var(--fw-navy-deep); }
+.fw-slice-btn.fw-on-white i{ color:var(--fw-navy-deep); }
+
+/* ---------------- quick-select pill nav ---------------- */
+.fw-pill-nav{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem;
+  max-width:560px;
+}
+.fw-pill{
+  display:inline-flex; align-items:center; gap:.45rem;
+  font-family:'Inter',sans-serif; font-weight:600; font-size:.78rem;
+  color:var(--fw-mist);
+  background:var(--fw-panel);
+  border:1px solid var(--fw-panel-border);
+  border-radius:999px;
+  padding:.5rem .9rem;
+  text-decoration:none;
+  cursor:pointer;
+  transition:border-color .2s ease, color .2s ease, background .2s ease;
+}
+.fw-pill .fw-dot{ width:.55rem; height:.55rem; border-radius:50%; flex:none; box-shadow:0 0 0 1px rgba(255,255,255,.25) inset; }
+.fw-pill:hover,
+.fw-pill:focus-visible{ border-color:var(--fw-gold); color:var(--fw-white); outline:none; }
+
+/* ================= RESPONSIVE ================= */
+
+/* small phones: trim labels, tighten spacing */
+@media (max-width:520px){
+  #financial-wellness-wheel{ padding:2rem 1rem; }
+  .fw-wheel-stage{ max-width:360px; }
+  .fw-slice-btn{ width:56px; height:56px; gap:.15rem; }
+  .fw-slice-btn .fw-slice-label{ display:none; }
+  .fw-hub-content span{ font-size:.55rem; }
+  .fw-pill{ font-size:.72rem; padding:.42rem .75rem; }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion:reduce){
+  .fw-slice, .fw-slice-btn{ transition:none; }
+}

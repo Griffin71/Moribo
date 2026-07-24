@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="keywords" content="financial wellness, budgeting, debt management, financial coaching">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="financial wheel/wheel.css">
     <meta name="author" content="Kabelo Kgosana">
     <title>Moribo Financial Wellness Solution - Home</title>
     <link rel="stylesheet" href="css/styles.css">
@@ -97,7 +102,7 @@
         <div class="wheel-container">
             <img src="assets/wheel_fixed.jpeg" alt="Financial Wellness Wheel" class="investment-image" id="wheelImage">
         </div>
-    </section>-->
+    </section>
 
     <section class="wheel-section">
     <h2><i class="fas fa-chart-pie"></i> The Financial Wellness Hub</h2>
@@ -106,7 +111,7 @@
     </p>
     
     <div class="wellness-table wellness-table-7">
-        <!-- Row 1 -->
+         Row 1 
         <div class="table-row">
             <div class="table-item" data-target="voluntary-payroll" role="button" tabindex="0" onclick="window.utils && window.utils.navigateToServicesSection('voluntary-payroll')">
                 <div class="item-icon"><i class="fas fa-hand-holding-usd"></i></div>
@@ -124,7 +129,7 @@
                 <div class="item-desc">Responsible borrowing options</div>
             </div>
         </div>
-        <!-- Row 2 -->
+         Row 2
         <div class="table-row">
             <div class="table-item" data-target="upskilling-workshops" role="button" tabindex="0" onclick="window.utils && window.utils.navigateToServicesSection('upskilling-workshops')">
                 <div class="item-icon"><i class="fas fa-graduation-cap"></i></div>
@@ -142,7 +147,7 @@
                 <div class="item-desc">Take control of your money</div>
             </div>
         </div>
-        <!-- Row 3 (single centered item for 7 total) -->
+        Row 3 (single centered item for 7 total) 
         <div class="table-row single-item-row">
             <div class="table-item center-item" data-target="wellness-events" role="button" tabindex="0" onclick="window.utils && window.utils.navigateToServicesSection('wellness-events')">
                 <div class="item-icon"><i class="fas fa-calendar-alt"></i></div>
@@ -152,7 +157,67 @@
         </div>
     </div>
 </section>
-    
+-->
+
+
+<!-- ============================================================
+     FINANCIAL WELLNESS WHEEL — embeddable section
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="wheel.css">
+
+<section class="fw-wheel-section" id="financial-wellness-wheel" aria-label="Financial Wellness Hub interactive wheel">
+
+  <div class="fw-header">
+    <p class="fw-eyebrow">The Financial Wellness Hub</p>
+    <h2 class="fw-title">Eight ways we help your people thrive financially</h2>
+    <p class="fw-subtitle">Select a slice — or a pill below — to jump straight to that service on our Services page.</p>
+  </div>
+
+  <div class="fw-layout">
+
+    <!-- ================= WHEEL ================= -->
+    <div class="fw-wheel-wrap">
+      <div class="fw-wheel-stage" id="fwWheelStage">
+
+        <!-- SVG paints the coloured wedges + decorative arrows + dividers -->
+        <svg class="fw-wheel-svg" id="fwWheelSvg" viewBox="0 0 600 600" role="presentation" aria-hidden="true">
+          <defs>
+            <filter id="fwSliceShadow" x="-40%" y="-40%" width="180%" height="180%">
+              <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#02070f" flood-opacity="0.45"/>
+            </filter>
+            <radialGradient id="fwHubGradient" cx="35%" cy="30%" r="80%">
+              <stop offset="0%" stop-color="#1c2f52"/>
+              <stop offset="100%" stop-color="#0a1628"/>
+            </radialGradient>
+          </defs>
+          <g id="fwSlicesGroup"></g>
+          <g id="fwArrowsGroup" class="fw-arrows" aria-hidden="true"></g>
+          <circle id="fwHubCircle" cx="300" cy="300" r="86" fill="url(#fwHubGradient)" stroke="#324a72" stroke-width="2"></circle>
+        </svg>
+
+        <!-- HTML overlay: clickable wedge buttons + center hub label -->
+        <div class="fw-wheel-labels" id="fwWheelLabels"></div>
+
+        <div class="fw-hub-content" aria-hidden="true">
+          <i class="fas fa-chart-pie"></i>
+          <span>Financial<br>Wellness<br>Hub</span>
+        </div>
+      </div>
+
+      <!-- Quick-select pills: same targets as the wheel, better for touch/keyboard/screen readers -->
+      <nav class="fw-pill-nav" id="fwPillNav" aria-label="Jump to a service"></nav>
+    </div>
+
+  </div>
+</section>
+
+
+
 
     <section class="section">
         <div class="container">
@@ -232,5 +297,6 @@
 
     <script src="js/utils.js"></script>
     <script src="js/main.js"></script>
+    <script src="financial wheel/wheel.js"></script>
 </body>
 </html>

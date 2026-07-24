@@ -1,5 +1,19 @@
 /* Per-section visuals, highlight animation, anchor offsets, and small utilities */
 
+/* ------------------------------------------------------------
+   Colour map (matches the Financial Wellness Wheel):
+   1. Budgeting & Coaching Services            -> purple  #8B5CF6
+   2. Debt Management Solutions                -> red     #E5484D
+   3. Facilitated Personal Insurance Solutions -> orange  #F2994A
+   4. Voluntary Payroll                        -> white   #FFFFFF
+   5. Facilitated Lending Solutions            -> neon-green #4ADE80
+   6. Upskilling Workshops & Training          -> yellow  #F5C542
+   7. Integrated Financial Wellness Events     -> light-blue #4EC3F7
+   8. Personal Financial Wellness Mgmt Programs-> blue    #3B6FE0
+   Only accent colours/tints changed below — layout, shapes and
+   structure are untouched.
+   ------------------------------------------------------------ */
+
 /* Base layout */
 .section { position: relative; padding: 3rem 0; --accent: #00a89c; --accent-rgb: 0,168,156; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
@@ -36,74 +50,94 @@
 .card-title { margin-bottom:.5rem; font-size:1.05rem; }
 .card p { margin:0; line-height:1.4; font-size:0.95rem; }
 
-/* SECTION 1: Financial Wellness - rounded cards, teal accents */
-#financial-wellness { --accent: #00a89c; --accent-rgb: 0,168,156; }
-#financial-wellness .card { border-radius:14px; background:linear-gradient(180deg,#f6fffd,#fff); border:1px solid rgba(0,168,156,0.08); color:#064b48; }
+/* SECTION 8: Personal Financial Wellness Management Programs
+   - rounded cards, blue accents */
+#financial-wellness { --accent: #3B6FE0; --accent-rgb: 59,111,224; }
+#financial-wellness .card { border-radius:14px; background:linear-gradient(180deg,#f3f7ff,#fff); border:1px solid rgba(59,111,224,0.1); color:#132a52; }
 #financial-wellness .card-title { color:var(--accent); font-weight:600; }
 
-/* SECTION 2: Debt Management - diagonal stripes, warm/orange accents */
-#debt-management { --accent: #ff7a2d; --accent-rgb: 255,122,45; }
+/* SECTION 2: Debt Management Solutions - diagonal stripes, red accents */
+#debt-management { --accent: #E5484D; --accent-rgb: 229,72,77; }
 #debt-management .card {
   border-radius:10px;
   background:
     linear-gradient(135deg, rgba(255,255,255,0.06) 0 12px, transparent 12px 24px),
-    linear-gradient(180deg,#fff6f2,#fff);
-  border:1px solid rgba(255,122,45,0.08);
-  color:#5a2f14;
+    linear-gradient(180deg,#fff3f3,#fff);
+  border:1px solid rgba(229,72,77,0.1);
+  color:#5c1417;
 }
 #debt-management .card-title { color:var(--accent); font-weight:700; }
 
-/* SECTION 3: Budgeting - dotted borders, green accents */
-#budgeting-coaching { --accent: #26a65b; --accent-rgb: 38,166,91; }
+/* SECTION 1: Budgeting and Coaching Services - dotted borders, purple accents */
+#budgeting-coaching { --accent: #8B5CF6; --accent-rgb: 139,92,246; }
 #budgeting-coaching .card {
   border-radius:10px;
-  border:2px dotted rgba(38,166,91,0.16);
-  background:#f8fff8;
-  color:#1c5b31;
+  border:2px dotted rgba(139,92,246,0.22);
+  background:#faf8ff;
+  color:#3b2a66;
 }
 #budgeting-coaching .card-title { color:var(--accent); font-weight:600; }
 
-/* SECTION 4: Facilitated Solutions - shadow depth, purple accents */
-#facilitated-solutions { --accent: #7b5cff; --accent-rgb: 123,92,255; }
+/* SECTION 3: Facilitated Personal Insurance Solutions - shadow depth, orange accents */
+#facilitated-solutions { --accent: #F2994A; --accent-rgb: 242,153,74; }
 #facilitated-solutions .card {
   border-radius:10px;
-  background:linear-gradient(180deg,#fff,#f9f7ff);
-  box-shadow: 0 8px 20px rgba(123,92,255,0.06);
-  border:1px solid rgba(123,92,255,0.05);
-  color:#3b2a66;
+  background:linear-gradient(180deg,#fff,#fff8f2);
+  box-shadow: 0 8px 20px rgba(242,153,74,0.08);
+  border:1px solid rgba(242,153,74,0.12);
+  color:#663a13;
 }
 #facilitated-solutions .card-title { color:var(--accent); font-weight:700; }
 
-/* Payroll/Lending look (gradient with icon emphasis) */
+/* SECTION 5: Facilitated Lending Solutions - neon/light green accents.
+   Applies to the lending card inside #facilitated-solutions (add
+   class="card card--lending" to that card in the HTML). */
+#facilitated-solutions .card--lending {
+  --accent: #4ADE80; --accent-rgb: 74,222,128;
+  background:linear-gradient(180deg,#fff,#f2fff6);
+  box-shadow: 0 8px 20px rgba(74,222,128,0.1);
+  border:1px solid rgba(74,222,128,0.18);
+  color:#146334;
+}
+#facilitated-solutions .card--lending .card-title { color:#1f9d54; font-weight:700; }
+
+/* SECTION 4: Voluntary Payroll - white card.
+   NOTE: send over the HTML snippet for this card and I'll match the
+   selector/markup exactly — for now this targets #payroll-card, the
+   id already used in this stylesheet. A flat white card would vanish
+   against the page background, so it's picked out with a hairline
+   border, soft shadow, and a gold icon/title accent instead of a
+   background fill. */
 #payroll-card {
   border-radius:12px;
-  background: linear-gradient(135deg,#6a37ff 0%, #b16bff 100%);
-  color:#fff;
-  box-shadow: 0 10px 30px rgba(107,66,255,0.18);
-  border:none;
+  background:#ffffff;
+  color:#0A1628;
+  border:1px solid rgba(10,22,40,0.14);
+  box-shadow: 0 10px 30px rgba(10,22,40,0.08);
 }
-#payroll-card .card-title { color: rgba(255,255,255,0.95); }
+#payroll-card .card-title { color:#0A1628; font-weight:700; }
+#payroll-card .card-icon { color:#E8B85C; }
 
-/* SECTION 5: Upskilling - rounded top corners only, blue accents */
-#upskilling-workshops { --accent: #1e88ff; --accent-rgb: 30,136,255; }
+/* SECTION 6: Upskilling Workshops & Training - rounded top corners only, yellow accents */
+#upskilling-workshops { --accent: #F5C542; --accent-rgb: 245,197,66; }
 #upskilling-workshops .card {
   border-radius:12px 12px 0 0;
-  background:linear-gradient(180deg,#f5fbff,#fff);
-  border-bottom:3px solid rgba(30,136,255,0.08);
-  color:#103b66;
+  background:linear-gradient(180deg,#fffdf3,#fff);
+  border-bottom:3px solid rgba(245,197,66,0.4);
+  color:#5c4a0e;
 }
-#upskilling-workshops .card-title { color:var(--accent); font-weight:600; }
+#upskilling-workshops .card-title { color:#a9860c; font-weight:600; }
 
-/* SECTION 6: Wellness Events - left border accent, gold tones */
-#wellness-events { --accent: #c79a1d; --accent-rgb: 199,154,29; }
+/* SECTION 7: Integrated Financial Wellness Events - left border accent, light-blue accents */
+#wellness-events { --accent: #4EC3F7; --accent-rgb: 78,195,247; }
 #wellness-events .card {
   border-radius:10px;
-  background:#fffaf2;
-  border-left:6px solid rgba(199,154,29,0.95);
+  background:#f3fbff;
+  border-left:6px solid rgba(78,195,247,0.95);
   padding-left:1rem;
-  color:#664f18;
+  color:#0e4a66;
 }
-#wellness-events .card-title { color:var(--accent); font-weight:700; }
+#wellness-events .card-title { color:#1c93cf; font-weight:700; }
 
 /* Anchor offsets (replace inline scroll-margin-top) */
 #voluntary-payroll, #lending-solutions { display:block; height:1px; margin-top:-80px; padding-top:80px; }

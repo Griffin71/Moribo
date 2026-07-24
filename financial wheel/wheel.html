@@ -1,0 +1,57 @@
+<!-- ============================================================
+     FINANCIAL WELLNESS WHEEL — embeddable section
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="wheel.css">
+
+<section class="fw-wheel-section" id="financial-wellness-wheel" aria-label="Financial Wellness Hub interactive wheel">
+
+  <div class="fw-header">
+    <p class="fw-eyebrow">The Financial Wellness Hub</p>
+    <h2 class="fw-title">Eight ways we help your people thrive financially</h2>
+    <p class="fw-subtitle">Select a slice — or a pill below — to jump straight to that service on our Services page.</p>
+  </div>
+
+  <div class="fw-layout">
+
+    <!-- ================= WHEEL ================= -->
+    <div class="fw-wheel-wrap">
+      <div class="fw-wheel-stage" id="fwWheelStage">
+
+        <!-- SVG paints the coloured wedges + decorative arrows + dividers -->
+        <svg class="fw-wheel-svg" id="fwWheelSvg" viewBox="0 0 600 600" role="presentation" aria-hidden="true">
+          <defs>
+            <filter id="fwSliceShadow" x="-40%" y="-40%" width="180%" height="180%">
+              <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#02070f" flood-opacity="0.45"/>
+            </filter>
+            <radialGradient id="fwHubGradient" cx="35%" cy="30%" r="80%">
+              <stop offset="0%" stop-color="#1c2f52"/>
+              <stop offset="100%" stop-color="#0a1628"/>
+            </radialGradient>
+          </defs>
+          <g id="fwSlicesGroup"></g>
+          <g id="fwArrowsGroup" class="fw-arrows" aria-hidden="true"></g>
+          <circle id="fwHubCircle" cx="300" cy="300" r="86" fill="url(#fwHubGradient)" stroke="#324a72" stroke-width="2"></circle>
+        </svg>
+
+        <!-- HTML overlay: clickable wedge buttons + center hub label -->
+        <div class="fw-wheel-labels" id="fwWheelLabels"></div>
+
+        <div class="fw-hub-content" aria-hidden="true">
+          <i class="fas fa-chart-pie"></i>
+          <span>Financial<br>Wellness<br>Hub</span>
+        </div>
+      </div>
+
+      <!-- Quick-select pills: same targets as the wheel, better for touch/keyboard/screen readers -->
+      <nav class="fw-pill-nav" id="fwPillNav" aria-label="Jump to a service"></nav>
+    </div>
+
+  </div>
+</section>
+
+<script src="wheel.js"></script>
