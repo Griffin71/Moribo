@@ -33,9 +33,32 @@ function addHeaderScrollEffect() {
   
   if (!header) return;
   
+  // Ensure header starts transparent
+  header.classList.remove('header-solid', 'scrolled');
+  
   function updateHeader() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 0;
+    
+    // If no hero section exists on this page, make header solid immediately
+    if (!hero) {
+      header.classList.add('header-solid');
+      if (scrollTop > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      return;
+    }
+    
+    const heroRect = hero.getBoundingClientRect();
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    
+    // Only start checking once hero has a valid height
+    if (hero.offsetHeight === 0) {
+      // Hero hasn't rendered yet - keep transparent
+      header.classList.remove('header-solid');
+      return;
+    }
     
     if (scrollTop > 50) {
       header.classList.add('scrolled');
@@ -44,21 +67,31 @@ function addHeaderScrollEffect() {
     }
     
     // Solid when scrolled past hero, transparent when within hero
-    if (scrollTop < heroBottom - 100) {
+    // Use a generous threshold to prevent flickering
+    if (scrollTop < heroBottom - 80) {
       header.classList.remove('header-solid');
     } else {
       header.classList.add('header-solid');
     }
   }
   
-  // Run on load
-  updateHeader();
+  // Run on load after a small delay for hero to render
+  setTimeout(updateHeader, 100);
+  
+  // Also run after full page load (images, etc.)
+  window.addEventListener('load', function() {
+    setTimeout(updateHeader, 50);
+  });
   
   // Run on scroll
   window.addEventListener('scroll', updateHeader, { passive: true });
   
   // Run on resize
-  window.addEventListener('resize', updateHeader);
+  let resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateHeader, 100);
+  });
 }
 
 // Initialize animations on scroll
@@ -257,16 +290,7 @@ function initCookieConsent() {
         enableAnalytics();
         consentBanner.style.display = 'none';
       });
-    }
-    
-    if (denyBtn) {
-      denyBtn.addEventListener('click', function() {
-        localStorage.setItem('cookieConsent', 'denied');
-        consentBanner.style.display = 'none';
-      });
-    }
-  }
-}
+ 
 
 function enableAnalytics() {
   console.log('Analytics enabled');
@@ -278,7 +302,7 @@ function scrollToTop() {
 }
 
 // Debounce function
-function debou nce(func, wait) {
+function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
     const later = () => {
@@ -295,10 +319,11 @@ function debou nce(func, wait) {
     'use strict';
 
     const stockImages = [
-        "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&w=1600",
-        "https://images.pexels.com/photos/4476371/pexels-photo-4476371.jpeg?auto=compress&w=1600",
-        "https://images.pexels.com/photos/8441820/pexels-photo-8441820.jpeg?auto=compress&w=1600",
-        "https://images.pexels.com/photos/4386373/pexels-photo-4386373.jpeg?auto=compress&w=1600"
+        "https://images.pexels.com/photos/36135026/pexels-photo-36135026.jpeg?auto=compress&w=1600",
+        "https://images.pexels.com/photos/24590645/pexels-photo-24590645.jpeg?auto=compress&w=1600",
+        "https://images.pexels.com/photos/17247741/pexels-photo-17247741.jpeg?auto=compress&w=1600",
+        "https://images.pexels.com/photos/8645749/pexels-photo-8645749.jpeg?auto=compress&w=1600",
+        "https://images.pexels.com/photos/24206203/pexels-photo-24206203.jpeg?auto=compress&w=1600"
     ];
 
     const hero = document.querySelector('.hero');
