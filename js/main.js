@@ -20,7 +20,8 @@ function updateActiveNavLink() {
   navLinks.forEach(link => {
     const href = link.getAttribute('href').split('/').pop() || 'index.html';
     if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-      link.style.color = 'var(--teal-accent)';
+      link.style.color = 'var(--primary-blue, #0057B7)';
+      link.style.fontWeight = '700';
     }
   });
 }
@@ -277,7 +278,7 @@ function scrollToTop() {
 }
 
 // Debounce function
-function debounce(func, wait) {
+function debou nce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
     const later = () => {
@@ -289,44 +290,23 @@ function debounce(func, wait) {
   };
 }
 
-// Hero Section - 4 Random Stock Images that shift/rotate
+// Hero Section - 4 Stock Images that shift/rotate
 (function() {
     'use strict';
 
-    // Array of 4 stock images (financial advisor category)
     const stockImages = [
-        "https://images.pexels.com/photos/2376272/pexels-photo-2376272.jpeg?auto=compress&w=1600", //WORKS  // Advisor with client
-        "https://images.pexels.com/photos/16767121/pexels-photo-16767121.jpeg?auto=compress&w=1600", //WORKS  // Business meeting
-        "https://images.pexels.com/photos/8645749/pexels-photo-8645749.jpeg?auto=compress&w=1600", //WORKS // Investment planning
-        "https://images.pexels.com/photos/17553904/pexels-photo-17553904.jpeg?auto=compress&w=1600"  //WORKS // Growth & wealth
+        "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&w=1600",
+        "https://images.pexels.com/photos/4476371/pexels-photo-4476371.jpeg?auto=compress&w=1600",
+        "https://images.pexels.com/photos/8441820/pexels-photo-8441820.jpeg?auto=compress&w=1600",
+        "https://images.pexels.com/photos/4386373/pexels-photo-4386373.jpeg?auto=compress&w=1600"
     ];
 
     const hero = document.querySelector('.hero');
     const heroBg = document.querySelector('.hero-bg');
-    const learnMoreBtn = document.querySelector('.btn-primary');
     
     let currentImageIndex = 0;
     let intervalId = null;
 
-    // Function to change to a random image
-    function changeRandomImage() {
-        let newIndex;
-        do {
-            newIndex = Math.floor(Math.random() * stockImages.length);
-        } while (newIndex === currentImageIndex && stockImages.length > 1);
-        
-        currentImageIndex = newIndex;
-        
-        if (heroBg) {
-            heroBg.style.opacity = '0';
-            setTimeout(() => {
-                heroBg.src = stockImages[currentImageIndex];
-                heroBg.style.opacity = '1';
-            }, 500);
-        }
-    }
-
-    // Function to change to next image (sequential, for variety)
     function changeNextImage() {
         currentImageIndex = (currentImageIndex + 1) % stockImages.length;
         
@@ -339,14 +319,11 @@ function debounce(func, wait) {
         }
     }
 
-    // Random shift: sometimes random, sometimes sequential (more natural)
     function smartShiftImages() {
         const randomChoice = Math.random();
         if (randomChoice < 0.6) {
-            // 60% chance: go to next image sequentially
             changeNextImage();
         } else {
-            // 40% chance: go to random different image
             let newIndex;
             do {
                 newIndex = Math.floor(Math.random() * stockImages.length);
@@ -363,54 +340,33 @@ function debounce(func, wait) {
         }
     }
 
-    // Make hero full screen height
     function setHeroFullHeight() {
         if (hero) {
             hero.style.minHeight = window.innerHeight + 'px';
         }
     }
 
-    // Smooth scroll for Learn More button
-    if (learnMoreBtn) {
-        learnMoreBtn.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const targetEl = document.querySelector(href);
-                if (targetEl) {
-                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
-        });
-    }
-
-    // Set initial random image on page load
     if (heroBg) {
         currentImageIndex = Math.floor(Math.random() * stockImages.length);
         heroBg.src = stockImages[currentImageIndex];
         heroBg.style.transition = 'opacity 0.8s ease-in-out';
         heroBg.style.opacity = '1';
         
-        // Start interval to shift images every 5 seconds
-        intervalId = setInterval(smartShiftImages, 5000);
+        intervalId = setInterval(smartShiftImages, 6000);
     }
 
-    // Handle resize
     window.addEventListener('resize', function() {
         setHeroFullHeight();
     });
 
-    // Initial call
     setHeroFullHeight();
 
-    // Clean up interval if needed (optional, but good practice)
     window.addEventListener('beforeunload', function() {
         if (intervalId) {
             clearInterval(intervalId);
         }
     });
 
-    // Smooth scroll for any anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const target = document.querySelector(this.getAttribute('href'));
@@ -422,11 +378,10 @@ function debounce(func, wait) {
     });
 })();
 
-// Interactive Wellness Table - 7 Topics
+// Interactive Wellness Table - 7 Topics (for index.html)
 (function() {
     'use strict';
 
-    // Mapping: data-target -> section ID on services page
     const sectionMap = {
         'voluntary-payroll': 'voluntary-payroll',
         'financial-wellness': 'financial-wellness', 
@@ -437,7 +392,6 @@ function debounce(func, wait) {
         'wellness-events': 'wellness-events'
     };
 
-    // Add IDs to sections dynamically
     function addSectionIds() {
         const sections = document.querySelectorAll('.section');
         
@@ -465,8 +419,7 @@ function debounce(func, wait) {
         });
     }
 
-    // Smooth scroll to section with highlight
-    function scrollToSection(sectionId, clickedItem) {
+    function scrollToSection(sectionId) {
         const targetSection = document.getElementById(sectionId);
         
         if (targetSection) {
@@ -486,13 +439,11 @@ function debounce(func, wait) {
                 }, 2500);
             }, 500);
         } else {
-            // Navigate to services page
             localStorage.setItem('highlightSection', sectionId);
             window.location.href = 'pages/services.html#' + sectionId;
         }
     }
 
-    // Handle clicks
     function initTableInteractions() {
         const tableItems = document.querySelectorAll('.table-item');
         
@@ -501,26 +452,23 @@ function debounce(func, wait) {
                 const targetId = this.getAttribute('data-target');
                 
                 if (targetId && sectionMap[targetId]) {
-                    // Visual feedback
                     this.style.transform = 'scale(0.98)';
                     setTimeout(() => {
                         this.style.transform = '';
                     }, 200);
                     
-                    scrollToSection(sectionMap[targetId], this);
+                    scrollToSection(sectionMap[targetId]);
                 }
             });
         });
     }
 
-  // Handle URL hash and stored highlight on load. Wait for full window.load for reliable scroll positions.
   function handleHashOnLoad() {
     function applyHighlightToId(id) {
       if (!id) return;
       const el = document.getElementById(id);
       if (!el) return;
       const sectionEl = el.closest('.section') || el;
-      // Scroll into view after layout settled
       try {
         sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } catch (e) {
@@ -530,15 +478,12 @@ function debounce(func, wait) {
       setTimeout(() => sectionEl.classList.remove('highlight-target'), 3000);
     }
 
-    // Apply stored highlight from index navigation
     const storedHighlight = localStorage.getItem('highlightSection');
     if (storedHighlight) {
       localStorage.removeItem('highlightSection');
-      // Wait for load then apply
       window.addEventListener('load', () => setTimeout(() => applyHighlightToId(storedHighlight), 60));
     }
 
-    // If there's a hash in URL, apply after load
     if (window.location.hash) {
       const hash = decodeURIComponent(window.location.hash.substring(1));
       window.addEventListener('load', () => setTimeout(() => applyHighlightToId(hash), 60));
@@ -558,11 +503,10 @@ function debounce(func, wait) {
     }
 })();
 
-// Interactive Wellness Table - 7 Topics with Highlight
+// Services page specific: Interactive Wellness Table with Highlight
 (function() {
     'use strict';
 
-    // Mapping: data-target -> section ID on services.html
     const sectionMap = {
         'financial-wellness': 'financial-wellness',
         'debt-management': 'debt-management',
@@ -574,10 +518,8 @@ function debounce(func, wait) {
         'lending-solutions': 'lending-solutions'
     };
 
-    // Special handling for payroll and lending (they're inside Facilitated Solutions)
     function handlePayrollLending(targetId) {
         if (targetId === 'voluntary-payroll') {
-            // Find the payroll card inside Facilitated Solutions
             const payrollCard = document.querySelector('#facilitated-solutions .card:last-child');
             if (payrollCard) {
                 payrollCard.classList.add('highlight-card');
@@ -586,9 +528,8 @@ function debounce(func, wait) {
                 }, 3000);
             }
         } else if (targetId === 'lending-solutions') {
-            // Find the lending card (Responsible Lending & Financing)
             const cards = document.querySelectorAll('#facilitated-solutions .card');
-            const lendingCard = cards[1]; // Second card in Facilitated Solutions
+            const lendingCard = cards[1];
             if (lendingCard) {
                 lendingCard.classList.add('highlight-card');
                 setTimeout(() => {
@@ -598,37 +539,30 @@ function debounce(func, wait) {
         }
     }
 
-    // Smooth scroll to section with highlight
     function scrollToSection(sectionId, targetId) {
         let targetSection = document.getElementById(sectionId);
         
-        // Special handling for payroll and lending
         if (targetId === 'voluntary-payroll' || targetId === 'lending-solutions') {
             targetSection = document.getElementById('facilitated-solutions');
         }
         
         if (targetSection) {
-            // Remove existing highlights
             document.querySelectorAll('.highlight-target').forEach(el => {
                 el.classList.remove('highlight-target');
             });
             
-            // Smooth scroll
             targetSection.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
             
-            // Add highlight after scroll
             setTimeout(() => {
                 targetSection.classList.add('highlight-target');
                 
-                // Handle payroll/lending specific card highlight
                 if (targetId === 'voluntary-payroll' || targetId === 'lending-solutions') {
                     handlePayrollLending(targetId);
                 }
                 
-                // Remove section highlight after 3 seconds
                 setTimeout(() => {
                     targetSection.classList.remove('highlight-target');
                 }, 3000);
@@ -636,7 +570,6 @@ function debounce(func, wait) {
         }
     }
 
-    // Handle clicks on table items
     function initTableInteractions() {
         const tableItems = document.querySelectorAll('.table-item');
         
@@ -645,30 +578,22 @@ function debounce(func, wait) {
                 const targetId = this.getAttribute('data-target');
                 
                 if (targetId && sectionMap[targetId]) {
-                    // Visual feedback on click
                     this.style.transform = 'scale(0.97)';
                     setTimeout(() => {
                         this.style.transform = '';
                     }, 200);
                     
-                    // Store which section to highlight after navigation
                     localStorage.setItem('highlightSection', targetId);
-                    
-                    // Navigate to services.html with hash
                     window.location.href = 'pages/services.html#' + sectionMap[targetId];
                 }
             });
         });
     }
 
-    // Handle highlight on services.html page load
   function handleIncomingHighlight() {
-    // Reuse handleHashOnLoad behavior — the other block already handles stored highlight and hash after load.
-    // This function remains for backward compatibility but will call handleHashOnLoad to perform the work.
     handleHashOnLoad();
   }
 
-    // Run on page load
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             initTableInteractions();
