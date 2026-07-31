@@ -18,7 +18,6 @@ html {
 }
 
 body {
-  padding-top: 80px;
   overflow-x: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #1a1a2e;
@@ -29,13 +28,13 @@ body {
 }
 
 /* ==========================================================================
-   2. Fixed Header / Navigation — Premium Glassmorphism
+   2. Fixed Header / Navigation — Starts transparent, becomes solid on scroll
    ========================================================================== */
 header {
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06), 0 4px 30px rgba(0, 0, 0, 0.04);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -44,40 +43,69 @@ header {
   height: 80px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid transparent;
   transition: background 0.4s ease, box-shadow 0.3s ease, height 0.3s ease, border-color 0.4s ease;
 }
 
-/* Transparent header — used when user is within the hero section */
-header.header-transparent {
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: none;
-  border-bottom-color: transparent;
-}
-
-header.header-transparent .logo-container img {
+/* Header elements are white against the dark hero by default */
+header .logo-container img {
   filter: brightness(0) invert(1);
 }
 
-header.header-transparent .nav-links a {
+header .nav-links a {
   color: rgba(255, 255, 255, 0.9);
 }
 
-header.header-transparent .nav-links a:hover {
+header .nav-links a:hover {
   color: #ffffff;
 }
 
-header.header-transparent .menu-toggle span {
+header .menu-toggle span {
   background: #ffffff;
 }
 
-header.header-transparent .nav-dropdown-toggle .dropdown-arrow {
+header .nav-dropdown-toggle .dropdown-arrow {
   color: rgba(255, 255, 255, 0.9);
 }
 
-header.scrolled {
+header .nav-links a::after {
+  background: linear-gradient(90deg, #ffffff, #00AEEF);
+}
+
+/* Solid white header — applied via JS when scrolled past hero */
+header.header-solid {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06), 0 4px 30px rgba(0, 0, 0, 0.04);
+  border-bottom-color: rgba(0, 0, 0, 0.05);
+}
+
+header.header-solid .logo-container img {
+  filter: none;
+}
+
+header.header-solid .nav-links a {
+  color: #2d1b69;
+}
+
+header.header-solid .nav-links a:hover {
+  color: #0057B7;
+}
+
+header.header-solid .menu-toggle span {
+  background: #2d1b69;
+}
+
+header.header-solid .nav-dropdown-toggle .dropdown-arrow {
+  color: #2d1b69;
+}
+
+header.header-solid .nav-links a::after {
+  background: linear-gradient(90deg, #0057B7, #00AEEF);
+}
+
+header.header-solid.scrolled {
   height: 68px;
   box-shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
 }
@@ -1354,10 +1382,6 @@ footer::before {
 @media (max-width: 768px) {
   header {
     height: 68px;
-  }
-
-  body {
-    padding-top: 68px;
   }
 
   header.scrolled {

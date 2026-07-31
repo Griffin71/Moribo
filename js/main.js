@@ -25,7 +25,7 @@ function updateActiveNavLink() {
   });
 }
 
-// Add header scroll effect + transparent toggling
+// Add header scroll effect — header starts transparent, becomes solid past hero
 function addHeaderScrollEffect() {
   const header = document.querySelector('header');
   const hero = document.querySelector('.hero');
@@ -42,11 +42,11 @@ function addHeaderScrollEffect() {
       header.classList.remove('scrolled');
     }
     
-    // Transparent when within the hero section bounds
+    // Solid when scrolled past hero, transparent when within hero
     if (scrollTop < heroBottom - 100) {
-      header.classList.add('header-transparent');
+      header.classList.remove('header-solid');
     } else {
-      header.classList.remove('header-transparent');
+      header.classList.add('header-solid');
     }
   }
   
