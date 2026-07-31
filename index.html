@@ -24,7 +24,25 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="pages/about.html">About</a></li>
                 <li><a href="pages/services.html">Services</a></li>
-                <li><a href="pages/news.html">News</a></li>
+                <li class="nav-item-has-dropdown">
+                    <span class="nav-dropdown-toggle">
+                        <a href="pages/news.html">News</a>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </span>
+                    <div class="nav-dropdown-menu">
+                        <div class="nav-dropdown-category">Latest</div>
+                        <a href="pages/news-latest.html" class="nav-dropdown-link">Latest News</a>
+                        <a href="pages/news-announcements.html" class="nav-dropdown-link">Announcements</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <div class="nav-dropdown-category">Stories</div>
+                        <a href="pages/news-updates.html" class="nav-dropdown-link">Updates</a>
+                        <a href="pages/news-opinion.html" class="nav-dropdown-link">Opinion Articles</a>
+                        <a href="pages/news-testimonies.html" class="nav-dropdown-link">Testimonies</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <div class="nav-dropdown-category">Media</div>
+                        <a href="pages/news-gallery.html" class="nav-dropdown-link">Photo Gallery</a>
+                    </div>
+                </li>
                 <li><a href="pages/contact.html">Contact</a></li>
             </ul>
             <button class="menu-toggle" aria-label="Menu">
@@ -228,11 +246,11 @@
             
             <div class="maps-container">
                 <div class="map-item">
-                    <h3 style="text-align: center; margin-bottom: 1rem;">Office Location 1</h3>
-                    <iframe src="https://www.google.com/maps/embed?pb=!4v1779894640591!6m8!1m7!1sCPmjXTrqEk8P9jfvE98ing!2m2!1d-25.83829097609246!2d28.17489482552374!3f348.29!4f-1.6599999999999966!5f0.7820865974627469" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Centurion Office Map"></iframe>
+                    <h3 style="text-align: center; margin-bottom: 1rem;">Main Office - Centurion</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3590.435781733821!2d28.185362499999997!3d-25.855131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95643782e4da17%3A0x8034daa4cb32aa67!2sLougardia.!5e0!3m2!1sen!2sus!4v1785424288044!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Centurion Office Map"></iframe>
                 </div>
                 <div class="map-item">
-                    <h3 style="text-align: center; margin-bottom: 1rem;">Office Location 2</h3>
+                    <h3 style="text-align: center; margin-bottom: 1rem;">Secondary Office - East London</h3>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3344.8218369984893!2d27.866842!3d-33.034824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDAyJzA1LjQiUyAyN8KwNTInMDAuNiJF!5e0!3m2!1sen!2sza!4v1779894694926!5m2!1sen!2sza" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="East London Office Map"></iframe>
                 </div>
             </div>
@@ -268,6 +286,37 @@
                             <li><a href="pages/contact.html">Contact</a></li>
                         </ul>
                     </div>
+<div class="footer-section social-section">
+    <h3>Follow Us</h3>
+    <ul class="footer-social-links">
+        <li>
+            <a href="https://www.facebook.com/moribofws/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-icon facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.twitter.com/moribo.financial" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="social-icon twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.instagram.com/moribo.financial" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/moribo.financial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon linkedin">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.youtube.com/moribo.financial" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="social-icon youtube">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
                     <div class="footer-section">
                         <h3>Legal</h3>
                         <ul class="footer-links">
@@ -296,6 +345,7 @@
     </div>
 
     <script src="js/utils.js"></script>
+    <script src="js/mobile-nav.js"></script>
     <script src="js/main.js"></script>
     <script src="financial wheel/wheel.js"></script>
 </body>

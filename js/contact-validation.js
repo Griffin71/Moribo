@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   messageContainer.id = 'form-message';
   form.appendChild(messageContainer);
 
-  const badWords = ['fuck', 'shit', 'bitch', 'asshole', 'cunt', 'damn', 'bastard', 'idiot', 'stupid', 'moron', 'fucker', 'bitchy'];
+  const badWords = ['fuck', 'shit', 'bitch', 'asshole', 'cunt', 'damn', 'bastard', 'idiot', 'stupid', 'moron', 'fucker', 'bitchy', 'pussy'];
 
   function containsBadWords(text) {
     if (!text) return false;

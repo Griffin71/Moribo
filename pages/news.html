@@ -19,7 +19,25 @@
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="news.html">News</a></li>
+                <li class="nav-item-has-dropdown">
+                    <span class="nav-dropdown-toggle">
+                        <a href="news.html">News</a>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </span>
+                    <div class="nav-dropdown-menu">
+                        <div class="nav-dropdown-category">Latest</div>
+                        <a href="news-latest.html" class="nav-dropdown-link">Latest News</a>
+                        <a href="news-announcements.html" class="nav-dropdown-link">Announcements</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <div class="nav-dropdown-category">Stories</div>
+                        <a href="news-updates.html" class="nav-dropdown-link">Updates</a>
+                        <a href="news-opinion.html" class="nav-dropdown-link">Opinion Articles</a>
+                        <a href="news-testimonies.html" class="nav-dropdown-link">Testimonies</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <div class="nav-dropdown-category">Media</div>
+                        <a href="news-gallery.html" class="nav-dropdown-link">Photo Gallery</a>
+                    </div>
+                </li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <button class="menu-toggle" aria-label="Menu">
@@ -140,6 +158,38 @@
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
+
+                    <div class="footer-section social-section">
+    <h3>Follow Us</h3>
+    <ul class="footer-social-links">
+        <li>
+            <a href="https://www.facebook.com/moribofws/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-icon facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.twitter.com/moribo.financial" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="social-icon twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.instagram.com/moribo.financial" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/moribo.financial" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon linkedin">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.youtube.com/moribo.financial" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="social-icon youtube">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
                     <div class="footer-section">
                         <h3>Legal</h3>
                         <ul class="footer-links">
@@ -158,6 +208,7 @@
     </footer>
 
     <script src="../js/utils.js"></script>
+    <script src="../js/mobile-nav.js"></script>
     <script src="../js/main.js"></script>
 </body>
 </html>

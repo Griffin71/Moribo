@@ -1,10 +1,9 @@
 // Moribo Financial Wellness Solution - Main JavaScript
-//Written by Kabelo Kgosana
+// Written by Kabelo Kgosana
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Moribo Financial Wellness Solution - Loaded');
   
   // Initialize all components
-  initMobileMenu();
   initCookieConsent();
   initSmoothScroll();
   initAnimations();
@@ -26,19 +25,39 @@ function updateActiveNavLink() {
   });
 }
 
-// Add header scroll effect
+// Add header scroll effect + transparent toggling
 function addHeaderScrollEffect() {
   const header = document.querySelector('header');
+  const hero = document.querySelector('.hero');
   
-  window.addEventListener('scroll', function() {
+  if (!header) return;
+  
+  function updateHeader() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 0;
     
-    if (scrollTop > 100) {
-      header.style.boxShadow = '0 4px 12px rgba(53, 41, 36, 0.15)';
+    if (scrollTop > 50) {
+      header.classList.add('scrolled');
     } else {
-      header.style.boxShadow = '0 2px 8px rgba(53, 41, 36, 0.1)';
+      header.classList.remove('scrolled');
     }
-  });
+    
+    // Transparent when within the hero section bounds
+    if (scrollTop < heroBottom - 100) {
+      header.classList.add('header-transparent');
+    } else {
+      header.classList.remove('header-transparent');
+    }
+  }
+  
+  // Run on load
+  updateHeader();
+  
+  // Run on scroll
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  
+  // Run on resize
+  window.addEventListener('resize', updateHeader);
 }
 
 // Initialize animations on scroll
@@ -60,27 +79,6 @@ function initAnimations() {
   document.querySelectorAll('.card, .service-card, .section').forEach(el => {
     observer.observe(el);
   });
-}
-
-// Mobile Menu Toggle
-function initMobileMenu() {
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  
-  if (menuToggle) {
-    menuToggle.addEventListener('click', function() {
-      navLinks.classList.toggle('active');
-      this.classList.toggle('active');
-    });
-    
-    const navItems = document.querySelectorAll('.nav-links a');
-    navItems.forEach(item => {
-      item.addEventListener('click', function() {
-        navLinks.classList.remove('active');
-        menuToggle.classList.remove('active');
-      });
-    });
-  }
 }
 
 // Smooth Scroll
@@ -297,10 +295,10 @@ function debounce(func, wait) {
 
     // Array of 4 stock images (financial advisor category)
     const stockImages = [
-        "https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&w=1600", //WORKS  // Advisor with client
-        "https://images.pexels.com/photos/4476371/pexels-photo-4476371.jpeg?auto=compress&w=1600", //WORKS  // Business meeting
-        "https://images.pexels.com/photos/8441820/pexels-photo-8441820.jpeg?auto=compress&w=1600", //WORKS // Investment planning
-        "https://images.pexels.com/photos/4386373/pexels-photo-4386373.jpeg?auto=compress&w=1600"  //WORKS // Growth & wealth
+        "https://images.pexels.com/photos/2376272/pexels-photo-2376272.jpeg?auto=compress&w=1600", //WORKS  // Advisor with client
+        "https://images.pexels.com/photos/16767121/pexels-photo-16767121.jpeg?auto=compress&w=1600", //WORKS  // Business meeting
+        "https://images.pexels.com/photos/8645749/pexels-photo-8645749.jpeg?auto=compress&w=1600", //WORKS // Investment planning
+        "https://images.pexels.com/photos/17553904/pexels-photo-17553904.jpeg?auto=compress&w=1600"  //WORKS // Growth & wealth
     ];
 
     const hero = document.querySelector('.hero');
