@@ -30,63 +30,32 @@ function updateActiveNavLink() {
 function addHeaderScrollEffect() {
   const header = document.querySelector('header');
   const hero = document.querySelector('.hero');
-  
+
   if (!header) return;
-  
-  // Ensure header starts transparent
+
   header.classList.remove('header-solid', 'scrolled');
-  
+
   function updateHeader() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // If no hero section exists on this page, make header solid immediately
+
     if (!hero) {
       header.classList.add('header-solid');
-      if (scrollTop > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
+      header.classList.toggle('scrolled', scrollTop > 24);
       return;
     }
-    
-    const heroRect = hero.getBoundingClientRect();
-    const heroBottom = hero.offsetTop + hero.offsetHeight;
-    
-    // Only start checking once hero has a valid height
-    if (hero.offsetHeight === 0) {
-      // Hero hasn't rendered yet - keep transparent
-      header.classList.remove('header-solid');
-      return;
-    }
-    
-    if (scrollTop > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-    
-    // Solid when scrolled past hero, transparent when within hero
-    // Use a generous threshold to prevent flickering
-    if (scrollTop < heroBottom - 80) {
-      header.classList.remove('header-solid');
-    } else {
-      header.classList.add('header-solid');
-    }
+
+    const heroHeight = hero.offsetHeight || window.innerHeight;
+    const heroBottom = hero.offsetTop + heroHeight;
+    const shouldBeSolid = scrollTop >= Math.max(40, heroBottom - 140);
+
+    header.classList.toggle('header-solid', shouldBeSolid);
+    header.classList.toggle('scrolled', scrollTop > 24);
   }
-  
-  // Run on load after a small delay for hero to render
-  setTimeout(updateHeader, 100);
-  
-  // Also run after full page load (images, etc.)
-  window.addEventListener('load', function() {
-    setTimeout(updateHeader, 50);
-  });
-  
-  // Run on scroll
+
+  updateHeader();
+  window.addEventListener('load', updateHeader, { once: true });
   window.addEventListener('scroll', updateHeader, { passive: true });
-  
-  // Run on resize
+
   let resizeTimer;
   window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
@@ -274,23 +243,34 @@ function initCookieConsent() {
   const consentBanner = document.getElementById('cookie-consent');
   const acceptBtn = document.getElementById('accept-cookies');
   const denyBtn = document.getElementById('deny-cookies');
-  
-  if (consentBanner) {
-    const consentChoice = localStorage.getItem('cookieConsent');
-    
-    if (!consentChoice) {
-      setTimeout(function() {
-        consentBanner.style.display = 'block';
-      }, 1500);
-    }
-    
-    if (acceptBtn) {
-      acceptBtn.addEventListener('click', function() {
-        localStorage.setItem('cookieConsent', 'accepted');
-        enableAnalytics();
-        consentBanner.style.display = 'none';
-      });
- 
+
+  if (!consentBanner) return;
+
+  const consentChoice = localStorage.getItem('cookieConsent');
+
+  if (consentChoice) {
+    consentBanner.style.display = 'none';
+  } else {
+    setTimeout(function() {
+      consentBanner.style.display = 'block';
+    }, 1500);
+  }
+
+  if (acceptBtn) {
+    acceptBtn.addEventListener('click', function() {
+      localStorage.setItem('cookieConsent', 'accepted');
+      enableAnalytics();
+      consentBanner.style.display = 'none';
+    });
+  }
+
+  if (denyBtn) {
+    denyBtn.addEventListener('click', function() {
+      localStorage.setItem('cookieConsent', 'denied');
+      consentBanner.style.display = 'none';
+    });
+  }
+}
 
 function enableAnalytics() {
   console.log('Analytics enabled');
@@ -376,6 +356,7 @@ function debounce(func, wait) {
         heroBg.src = stockImages[currentImageIndex];
         heroBg.style.transition = 'opacity 0.8s ease-in-out';
         heroBg.style.opacity = '1';
+        heroBg.setAttribute('loading', 'eager');
         
         intervalId = setInterval(smartShiftImages, 6000);
     }

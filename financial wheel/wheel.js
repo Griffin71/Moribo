@@ -220,7 +220,7 @@
       pill.href = href;
       pill.className = 'fw-pill';
       pill.dataset.id = svc.id;
-      pill.innerHTML = '<span class="fw-dot" style="background:' + svc.color + '"></span>' + svc.short;
+      pill.innerHTML = '<i class="fas ' + svc.icon + '" style="color:' + svc.color + '"></i><span>' + svc.short + '</span>';
       pillNav.appendChild(pill);
     });
   }

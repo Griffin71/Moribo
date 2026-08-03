@@ -160,7 +160,8 @@
   cursor:pointer;
   transition:border-color .2s ease, color .2s ease, background .2s ease;
 }
-.fw-pill .fw-dot{ width:.55rem; height:.55rem; border-radius:50%; flex:none; box-shadow:0 0 0 1px rgba(255,255,255,.25) inset; }
+.fw-pill i{ font-size:.9rem; flex:none; }
+.fw-pill span{ display:inline-block; }
 .fw-pill:hover,
 .fw-pill:focus-visible{ border-color:var(--fw-gold); color:var(--fw-white); outline:none; }
 
